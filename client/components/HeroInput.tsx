@@ -6,9 +6,10 @@ import { useState } from 'react';
 
 interface HeroInputProps {
   onAnalyze?: (inputType: 'url' | 'github') => void;
+  onInputTypeChange?: (inputType: 'url' | 'github') => void;
 }
 
-export default function HeroInput({ onAnalyze }: HeroInputProps) {
+export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [inputType, setInputType] = useState<'url' | 'github'>('url');
@@ -38,7 +39,11 @@ export default function HeroInput({ onAnalyze }: HeroInputProps) {
           <div className="flex rounded-2xl glass border border-white/10 p-1">
             <button
               type="button"
-              onClick={() => setInputType('url')}
+              onClick={() => {
+                const newType = 'url';
+                setInputType(newType);
+                onInputTypeChange?.(newType);
+              }}
               className={`px-4 py-2 rounded-xl transition-all ${
                 inputType === 'url'
                   ? 'bg-primary text-white'
@@ -52,7 +57,11 @@ export default function HeroInput({ onAnalyze }: HeroInputProps) {
             </button>
             <button
               type="button"
-              onClick={() => setInputType('github')}
+              onClick={() => {
+                const newType = 'github';
+                setInputType(newType);
+                onInputTypeChange?.(newType);
+              }}
               className={`px-4 py-2 rounded-xl transition-all ${
                 inputType === 'github'
                   ? 'bg-primary text-white'

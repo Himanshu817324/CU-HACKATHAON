@@ -16,8 +16,13 @@ export default function Analyze() {
   const [inputType, setInputType] = useState<'url' | 'github'>('url');
 
   const handleAnalyze = (type: 'url' | 'github') => {
+    // Reset results when starting a new analysis or when type changes
+    if (inputType !== type) {
+      setHasResults(false);
+    }
     setInputType(type);
     setIsAnalyzing(true);
+    setHasResults(false); // Clear results before new analysis
     setTimeout(() => {
       setIsAnalyzing(false);
       setHasResults(true);
@@ -46,7 +51,14 @@ export default function Analyze() {
 
           {/* Input */}
           <div className="mb-12">
-            <HeroInput onAnalyze={handleAnalyze} />
+            <HeroInput 
+              onAnalyze={handleAnalyze}
+              onInputTypeChange={(type) => {
+                // Clear results immediately when switching input type
+                setHasResults(false);
+                setInputType(type);
+              }}
+            />
           </div>
 
           {/* Loading State */}
@@ -63,11 +75,13 @@ export default function Analyze() {
             </motion.div>
           )}
 
-          {/* Results */}
-          {hasResults && (
+          {/* Results - Website Analysis (Emission Metrics) */}
+          {hasResults && inputType === 'url' && (
             <motion.div
+              key={`results-${inputType}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               className="space-y-12"
             >
               {/* Score Cards */}
@@ -107,18 +121,25 @@ export default function Analyze() {
                 </div>
               </div>
 
-              {/* Code Optimization Results - Only for GitHub */}
-              {inputType === 'github' && (
-                <div>
-                  <OptimizationResults />
-                </div>
-              )}
-
               {/* Recommendations */}
               <div>
                 <h2 className="text-2xl font-bold mb-6">AI Recommendations</h2>
                 <RecommendationChat recommendations={mockEmissionData.recommendations} />
               </div>
+            </motion.div>
+          )}
+
+          {/* Results - GitHub Analysis (Code Optimization Only) */}
+          {hasResults && inputType === 'github' && (
+            <motion.div
+              key={`results-${inputType}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="space-y-12"
+            >
+              {/* Code Optimization Results */}
+              <OptimizationResults key={`optimization-${inputType}`} />
             </motion.div>
           )}
         </motion.div>
