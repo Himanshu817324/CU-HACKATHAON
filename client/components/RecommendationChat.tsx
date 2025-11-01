@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Sparkles, Check, Code } from 'lucide-react';
-import { useState } from 'react';
+import { Sparkles } from 'lucide-react';
 
 interface Recommendation {
   id: string;
@@ -17,12 +16,6 @@ interface RecommendationChatProps {
 }
 
 export default function RecommendationChat({ recommendations }: RecommendationChatProps) {
-  const [accepted, setAccepted] = useState<Set<string>>(new Set());
-
-  const handleAccept = (id: string) => {
-    setAccepted(new Set([...accepted, id]));
-  };
-
   return (
     <div className="space-y-4">
       {recommendations.map((rec, index) => (
@@ -47,32 +40,8 @@ export default function RecommendationChat({ recommendations }: RecommendationCh
                 </div>
               </div>
               <p className="text-text-secondary text-sm mb-3">{rec.description}</p>
-              <div className="text-sm text-success font-medium mb-4">
+              <div className="text-sm text-success font-medium">
                 Predicted improvement: {rec.impact}
-              </div>
-              <div className="flex space-x-2">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleAccept(rec.id)}
-                  disabled={accepted.has(rec.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-colors ${
-                    accepted.has(rec.id)
-                      ? 'bg-success/10 text-success cursor-not-allowed'
-                      : 'bg-primary text-white hover:bg-primary/90'
-                  }`}
-                >
-                  <Check className="w-4 h-4" />
-                  <span>{accepted.has(rec.id) ? 'Accepted' : 'Accept'}</span>
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center space-x-2 px-4 py-2 rounded-xl border border-white/10 text-text-secondary hover:text-text-primary hover:border-primary/50 transition-colors"
-                >
-                  <Code className="w-4 h-4" />
-                  <span>View Code</span>
-                </motion.button>
               </div>
             </div>
           </div>
