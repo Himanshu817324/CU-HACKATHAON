@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <ProtectedRoute>
       <div className="min-h-screen flex">
         <LeftSidebar />
-        <main className="flex-1 lg:pl-64 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto">
           {children}
         </main>
       </div>
