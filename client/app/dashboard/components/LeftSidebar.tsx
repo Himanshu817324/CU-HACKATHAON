@@ -8,7 +8,6 @@ import {
   Settings, 
   FileText, 
   Users, 
-  Leaf, 
   LogOut,
   Menu,
   X
@@ -43,26 +42,9 @@ export default function LeftSidebar() {
   };
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full">
-      {/* Logo */}
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="p-6 flex items-center gap-3"
-      >
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#34D399] to-[#38BDF8] flex items-center justify-center">
-          <Leaf className="w-6 h-6 text-[#071428]" />
-        </div>
-        <div>
-          <h2 className="text-lg font-bold bg-gradient-to-r from-[#34D399] to-[#38BDF8] bg-clip-text text-transparent">
-            SustainAI
-          </h2>
-          <p className="text-xs text-text-secondary">Eco Analytics</p>
-        </div>
-      </motion.div>
-
+    <div className="flex flex-col h-full overflow-hidden">
       {/* Navigation */}
-      <nav className="flex-1 px-4 space-y-2">
+      <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
         {navItems.map((item, index) => {
           const Icon = item.icon;
           const isActive = pathname === item.path;
@@ -135,20 +117,12 @@ export default function LeftSidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex w-64 flex-col bg-midnight border-r border-white/10">
-        <SidebarContent />
+      <aside className="hidden lg:flex fixed left-0 top-22 w-64 h-[calc(97vh-4rem)] flex-col bg-midnight border-r border-white/10 overflow-hidden z-40">
+        {SidebarContent()}
       </aside>
 
       {/* Mobile Header */}
-      <div className="lg:hidden bg-midnight border-b border-white/10 p-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#34D399] to-[#38BDF8] flex items-center justify-center">
-            <Leaf className="w-5 h-5 text-[#071428]" />
-          </div>
-          <h2 className="text-lg font-bold bg-gradient-to-r from-[#34D399] to-[#38BDF8] bg-clip-text text-transparent">
-            SustainAI
-          </h2>
-        </div>
+      <div className="lg:hidden bg-midnight border-b border-white/10 p-4 flex items-center justify-end">
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
           className="p-2 rounded-lg hover:bg-white/5 transition-colors"
@@ -165,7 +139,7 @@ export default function LeftSidebar() {
             onClick={() => setIsMobileOpen(false)}
           />
           <aside className="fixed inset-y-0 left-0 w-64 bg-midnight border-r border-white/10 z-50 lg:hidden">
-            <SidebarContent />
+            {SidebarContent()}
           </aside>
         </>
       )}
