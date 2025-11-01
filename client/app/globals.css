@@ -12,6 +12,11 @@
   --danger: #E85A4F;
   --glass: rgba(255, 255, 255, 0.04);
   
+  /* Eco Dashboard Colors */
+  --eco-green: #34D399;
+  --sky-blue: #38BDF8;
+  --energy-yellow: #FACC15;
+  
   /* Updated foreground and background for dark theme */
   --background: #071428;
   --foreground: #E6E8EB;
@@ -29,6 +34,10 @@
   --color-success: var(--success);
   --color-danger: var(--danger);
   --color-glass: var(--glass);
+  
+  --color-eco-green: var(--eco-green);
+  --color-sky-blue: var(--sky-blue);
+  --color-energy-yellow: var(--energy-yellow);
   
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

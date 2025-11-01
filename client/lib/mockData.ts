@@ -96,3 +96,64 @@ export const mockComparison = {
   label: "Carbon Emissions per Page"
 };
 
+// New comprehensive analytics dashboard data
+export const dashboardAnalytics = {
+  emissionScore: 86,
+  co2Saved: 1.4,
+  energyEfficiency: 92,
+  requestsOptimized: 45000,
+  aiRecommendationsUsed: 72,
+  ecoRank: "A+",
+  
+  emissionTrend: [
+    { day: "Mon", emission: 80 },
+    { day: "Tue", emission: 75 },
+    { day: "Wed", emission: 73 },
+    { day: "Thu", emission: 70 },
+    { day: "Fri", emission: 68 },
+    { day: "Sat", emission: 66 },
+    { day: "Sun", emission: 64 }
+  ],
+  
+  breakdown: [
+    { name: "Scripts", value: 30, color: "#34D399" },
+    { name: "Images", value: 20, color: "#38BDF8" },
+    { name: "Backend", value: 25, color: "#FACC15" },
+    { name: "Hosting", value: 25, color: "#A855F7" }
+  ],
+  
+  efficiencyGains: [
+    { category: "Scripts", gain: 20 },
+    { category: "Images", gain: 40 },
+    { category: "Hosting", gain: 15 },
+    { category: "Database", gain: 25 }
+  ],
+  
+  aiRecommendations: [
+    { 
+      text: "Compress images to WebP format", 
+      impact: "High",
+      category: "Images",
+      saved: "45 gCO₂"
+    },
+    { 
+      text: "Enable lazy loading for images", 
+      impact: "Medium",
+      category: "Performance",
+      saved: "28 gCO₂"
+    },
+    { 
+      text: "Switch to green hosting provider", 
+      impact: "High",
+      category: "Infrastructure",
+      saved: "120 gCO₂"
+    },
+    {
+      text: "Optimize database queries",
+      impact: "Medium",
+      category: "Backend",
+      saved: "35 gCO₂"
+    }
+  ]
+};
+

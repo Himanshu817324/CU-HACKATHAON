@@ -1,81 +1,114 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Zap, Leaf, TrendingUp, CheckCircle } from 'lucide-react';
+import { Gauge, Leaf, TrendingUp, Zap, Sparkles, Trophy } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import KPICard, { KPIStrip } from '@/components/KPIStrip';
-import ProjectCard from '@/components/ProjectCard';
-import RecommendationChat from '@/components/RecommendationChat';
-import { mockProjects, mockKPIs, mockEmissionData } from '@/lib/mockData';
-
-// Icon mapping
-const iconMap: Record<string, any> = {
-  Zap,
-  Leaf,
-  TrendingUp,
-  CheckCircle,
-};
+import { dashboardAnalytics } from '@/lib/mockData';
+import Header from './components/Header';
+import StatCard from './components/StatCard';
+import EmissionLineChart from './components/EmissionLineChart';
+import BreakdownDonutChart from './components/BreakdownDonutChart';
+import EfficiencyBarChart from './components/EfficiencyBarChart';
+import AIInsightsPanel from './components/AIInsightsPanel';
 
 export default function Dashboard() {
+  const { 
+    emissionScore, 
+    co2Saved, 
+    energyEfficiency, 
+    requestsOptimized, 
+    aiRecommendationsUsed, 
+    ecoRank,
+    emissionTrend,
+    breakdown,
+    efficiencyGains,
+    aiRecommendations
+  } = dashboardAnalytics;
+
   return (
     <div className="min-h-screen">
       <Navbar />
       
-      <div className="container mx-auto px-6 py-20 pt-32">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-32">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">
-            Welcome back, Himanshu 👋
-          </h1>
-          <p className="text-xl text-text-secondary">
-            Here's your sustainability overview
-          </p>
-        </motion.div>
+        <Header />
 
-        {/* KPI Strip */}
-        <KPIStrip>
-          {mockKPIs.map((kpi, index) => {
-            const Icon = iconMap[kpi.icon];
-            return (
-              <KPICard
-                key={index}
-                icon={Icon}
-                label={kpi.label}
-                value={kpi.value}
-                change={kpi.change}
-                unit={kpi.unit}
-                delay={index * 0.1}
-              />
-            );
-          })}
-        </KPIStrip>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <StatCard
+            icon={Gauge}
+            label="Emission Score"
+            value={emissionScore}
+            color="#34D399"
+            delay={0.1}
+          />
+          <StatCard
+            icon={Leaf}
+            label="CO₂ Saved"
+            value={co2Saved}
+            unit="kg"
+            color="#38BDF8"
+            delay={0.2}
+          />
+          <StatCard
+            icon={Zap}
+            label="Energy Efficiency"
+            value={energyEfficiency}
+            unit="%"
+            color="#34D399"
+            delay={0.3}
+          />
+          <StatCard
+            icon={TrendingUp}
+            label="Requests Optimized"
+            value={requestsOptimized}
+            color="#38BDF8"
+            delay={0.4}
+          />
+          <StatCard
+            icon={Sparkles}
+            label="AI Recommendations Used"
+            value={aiRecommendationsUsed}
+            unit="%"
+            color="#FACC15"
+            delay={0.5}
+          />
+          <StatCard
+            icon={Trophy}
+            label="Eco Rank"
+            value={ecoRank}
+            color="#34D399"
+            delay={0.6}
+          />
+        </div>
 
-        {/* Projects Grid */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">Your Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mockProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <ProjectCard {...project} />
-              </motion.div>
-            ))}
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          {/* Line Chart - Span 2 columns */}
+          <div className="lg:col-span-2">
+            <EmissionLineChart data={emissionTrend} />
+          </div>
+          
+          {/* Donut Chart */}
+          <div className="relative">
+            <BreakdownDonutChart data={breakdown} />
           </div>
         </div>
 
-        {/* Recommendations */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6">AI Recommendations</h2>
-          <RecommendationChat recommendations={mockEmissionData.recommendations} />
+        {/* Bottom Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Bar Chart */}
+          <div className="lg:col-span-2">
+            <EfficiencyBarChart data={efficiencyGains} />
+          </div>
+
+          {/* AI Insights Panel */}
+          <div>
+            <AIInsightsPanel 
+              recommendations={aiRecommendations}
+              overallScore={emissionScore}
+            />
+          </div>
         </div>
       </div>
 
@@ -83,4 +116,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
