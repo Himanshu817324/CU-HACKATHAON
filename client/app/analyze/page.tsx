@@ -7,13 +7,16 @@ import Footer from '@/components/Footer';
 import HeroInput from '@/components/HeroInput';
 import ImpactBadge from '@/components/ImpactBadge';
 import RecommendationChat from '@/components/RecommendationChat';
+import OptimizationResults from '@/components/OptimizationResults';
 import { mockEmissionData } from '@/lib/mockData';
 
 export default function Analyze() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [hasResults, setHasResults] = useState(false);
+  const [inputType, setInputType] = useState<'url' | 'github'>('url');
 
-  const handleAnalyze = () => {
+  const handleAnalyze = (type: 'url' | 'github') => {
+    setInputType(type);
     setIsAnalyzing(true);
     setTimeout(() => {
       setIsAnalyzing(false);
@@ -103,6 +106,13 @@ export default function Analyze() {
                   </div>
                 </div>
               </div>
+
+              {/* Code Optimization Results - Only for GitHub */}
+              {inputType === 'github' && (
+                <div>
+                  <OptimizationResults />
+                </div>
+              )}
 
               {/* Recommendations */}
               <div>

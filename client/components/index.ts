@@ -11,4 +11,5 @@ export { default as KPIStrip, default as KPICard } from './KPIStrip';
 export { default as RecommendationChat } from './RecommendationChat';
 export { default as ReportPDFPreview } from './ReportPDFPreview';
 export { default as EmissionChart } from './EmissionChart';
+export { default as OptimizationResults } from './OptimizationResults';
 

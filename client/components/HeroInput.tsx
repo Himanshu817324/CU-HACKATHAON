@@ -5,7 +5,7 @@ import { Search, GitBranch } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeroInputProps {
-  onAnalyze?: () => void;
+  onAnalyze?: (inputType: 'url' | 'github') => void;
 }
 
 export default function HeroInput({ onAnalyze }: HeroInputProps) {
@@ -22,7 +22,7 @@ export default function HeroInput({ onAnalyze }: HeroInputProps) {
     // Simulate analysis
     setTimeout(() => {
       setIsLoading(false);
-      onAnalyze?.();
+      onAnalyze?.(inputType);
     }, 2000);
   };
 
