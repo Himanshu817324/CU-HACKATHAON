@@ -21,7 +21,8 @@ export default function BeforeAfterSlider({ beforeValue, afterValue, label }: Be
   );
 
   const handleDrag = (event: any, info: any) => {
-    const containerWidth = event.currentTarget.parentElement?.offsetWidth || 400;
+    const parent = event.currentTarget?.parentElement;
+    const containerWidth = parent?.offsetWidth || 400;
     const position = (info.point.x / containerWidth) * 100;
     const clampedPosition = Math.max(0, Math.min(100, position));
     setSliderPosition(clampedPosition);
