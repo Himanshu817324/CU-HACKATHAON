@@ -166,7 +166,7 @@ export default function OptimizationResults() {
             {/* Problematic Code Block */}
             <div className="mb-4">
               <div className="text-xs text-red-300 mb-2 font-medium">Problematic Code</div>
-              <div className="bg-red-900/20 text-red-300 border-l-4 border-red-500 rounded-lg overflow-hidden">
+              <div className="code-block-container bg-red-900/20 text-red-300 border-l-4 border-red-500 rounded-lg overflow-hidden">
                 <SyntaxHighlighter
                   language="javascript"
                   style={vscDarkPlus}
@@ -197,7 +197,7 @@ export default function OptimizationResults() {
                   transition={{ duration: 0.7, ease: 'easeOut' }}
                 >
                   <div className="text-xs text-green-300 mb-2 font-medium">Optimized Code</div>
-                  <div className="bg-green-900/20 text-green-300 border-l-4 border-green-500 rounded-lg overflow-hidden">
+                  <div className="code-block-container bg-green-900/20 text-green-300 border-l-4 border-green-500 rounded-lg overflow-hidden">
                     <SyntaxHighlighter
                       language="javascript"
                       style={vscDarkPlus}

@@ -36,7 +36,7 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
       <form onSubmit={handleSubmit} className="relative">
         <div className="flex flex-col md:flex-row gap-3">
           {/* Input Type Toggle */}
-          <div className="flex rounded-2xl glass border border-white/10 p-1">
+          <div className="flex w-full md:w-auto rounded-2xl glass border border-white/10 p-1">
             <button
               type="button"
               onClick={() => {
@@ -44,13 +44,13 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
                 setInputType(newType);
                 onInputTypeChange?.(newType);
               }}
-              className={`px-4 py-2 rounded-xl transition-all ${
+              className={`flex-1 md:flex-none px-4 py-2 rounded-xl transition-all ${
                 inputType === 'url'
                   ? 'bg-primary text-white'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center justify-center space-x-2">
                 <Search className="w-4 h-4" />
                 <span className="text-sm font-medium">Website</span>
               </div>
@@ -62,13 +62,13 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
                 setInputType(newType);
                 onInputTypeChange?.(newType);
               }}
-              className={`px-4 py-2 rounded-xl transition-all ${
+              className={`flex-1 md:flex-none px-4 py-2 rounded-xl transition-all ${
                 inputType === 'github'
                   ? 'bg-primary text-white'
                   : 'text-text-secondary hover:text-text-primary'
               }`}
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center justify-center space-x-2">
                 <GitBranch className="w-4 h-4" />
                 <span className="text-sm font-medium">GitHub</span>
               </div>
