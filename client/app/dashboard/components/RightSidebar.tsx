@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TrendingUp, Target, Award, AlertCircle, CheckCircle } from 'lucide-react';
+import { TrendingUp, Target, Award, AlertCircle, CheckCircle, LucideIcon } from 'lucide-react';
 
 interface Insight {
   type: 'achievement' | 'warning' | 'info';
   title: string;
   description: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
   color: string;
 }
 

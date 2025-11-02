@@ -10,13 +10,14 @@ import {
   Users, 
   LogOut,
   Menu,
-  X
+  X,
+  LucideIcon
 } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface NavItem {
-  icon: React.ElementType;
+  icon: LucideIcon;
   label: string;
   path: string;
   badge?: string | number;
