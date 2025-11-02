@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, memo, useMemo } from 'react';
+import { Sparkles, TrendingUp, Zap } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HeroInput from '@/components/HeroInput';
@@ -9,6 +10,7 @@ import OptimizationResults from '@/components/OptimizationResults';
 import EmissionDashboard from '@/components/Analyze/CarbonTracker/EmissionDashboard';
 import CreditsModal from '@/components/CreditsModal';
 import { useAuth } from '@/contexts/AuthContext';
+import { ScrollReveal } from '@/lib/scrollAnimations';
 
 // Hints array - defined outside component to avoid recreating on every render
 const HINTS = [
@@ -190,7 +192,13 @@ export default function Analyze() {
           throw new Error('Invalid response format from API');
         }
 
-        const mappedData = apiResponse.analysis.map((item: any) => ({
+        const mappedData = apiResponse.analysis.map((item: {
+          fileName?: string;
+          problemDescription?: string;
+          problematicCode?: string;
+          optimizedCode?: string;
+          optimization?: string;
+        }) => ({
           fileName: item.fileName || '',
           problemDescription: item.problemDescription || '',
           problematicCode: item.problematicCode || '',
@@ -245,98 +253,180 @@ export default function Analyze() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-success/5 rounded-full blur-3xl" />
+      </div>
+
       <Navbar />
       
-      <div className="container mx-auto px-6 py-20 pt-32">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto"
-        >
+      <div className="container mx-auto px-6 py-24 pt-32 relative z-10">
+        <ScrollReveal variant="fadeInUp" className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-16">
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass border border-primary/20 mb-6"
+            >
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium text-primary">Carbon Analysis</span>
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-text-primary via-primary to-success bg-clip-text text-transparent"
+            >
               Analyze Your Project
-            </h1>
-            <p className="text-xl text-text-secondary">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-xl md:text-2xl text-text-secondary max-w-2xl mx-auto leading-relaxed"
+            >
               Enter your website URL or GitHub repository to get instant carbon insights
-            </p>
+            </motion.p>
           </div>
 
           {/* Input */}
-          <div className="mb-12">
-            <HeroInput 
-              onAnalyze={handleAnalyze}
-              onInputTypeChange={(type) => {
-                // Clear results immediately when switching input type
-                setHasResults(false);
-                setInputType(type);
-              }}
-              isAnalyzing={isAnalyzing}
-            />
-          </div>
+          <ScrollReveal variant="fadeInUp" delay={0.2} className="mb-16">
+            <div className="relative">
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                className="glass rounded-3xl p-8 border border-black/10 bg-white/80 backdrop-blur-xl shadow-xl mb-8"
+              >
+                <HeroInput 
+                  onAnalyze={handleAnalyze}
+                  onInputTypeChange={(type) => {
+                    // Clear results immediately when switching input type
+                    setHasResults(false);
+                    setInputType(type);
+                  }}
+                  isAnalyzing={isAnalyzing}
+                />
+              </motion.div>
+              
+              {/* Quick stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                {[
+                  { icon: TrendingUp, label: 'AI-Powered', value: 'Analysis' },
+                  { icon: Zap, label: 'Real-time', value: 'Insights' },
+                  { icon: Sparkles, label: 'Actionable', value: 'Recommendations' },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -4 }}
+                    className="glass rounded-2xl p-6 border border-black/10 bg-white/60 backdrop-blur-xl text-center group"
+                  >
+                    <stat.icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
+                    <div className="text-sm font-medium text-text-secondary mb-1">{stat.label}</div>
+                    <div className="text-lg font-bold text-text-primary">{stat.value}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
 
           {/* Loading State */}
-          {isAnalyzing && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-20"
-            >
-              {inputType === 'github' ? (
-                <GitHubAnalyzingLoader hints={HINTS} currentHintIndex={currentHintIndex} />
-              ) : (
-                <>
-                  <div className="inline-block w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-4" />
-                  <p className="text-lg text-text-secondary">
-                    Analyzing your project... This may take a few moments.
-                  </p>
-                </>
-              )}
-            </motion.div>
-          )}
+          <AnimatePresence>
+            {isAnalyzing && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="text-center py-20"
+              >
+                {inputType === 'github' ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <GitHubAnalyzingLoader hints={HINTS} currentHintIndex={currentHintIndex} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="space-y-6"
+                  >
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                      className="inline-block w-20 h-20 border-4 border-primary/30 border-t-primary rounded-full mb-6"
+                    />
+                    <p className="text-xl text-text-secondary font-medium">
+                      Analyzing your project... This may take a few moments.
+                    </p>
+                  </motion.div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Error State */}
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="glass rounded-2xl p-6 border border-danger/50 mb-8"
-            >
-              <p className="text-danger text-center">{error}</p>
-            </motion.div>
-          )}
+          <AnimatePresence>
+            {error && (
+              <ScrollReveal variant="fadeInUp">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="glass rounded-2xl p-6 border border-danger/50 bg-red-50/50 backdrop-blur-xl mb-8 shadow-lg"
+                >
+                  <p className="text-danger text-center font-medium">{error}</p>
+                </motion.div>
+              </ScrollReveal>
+            )}
+          </AnimatePresence>
 
           {/* Results - Website Analysis (Emission Metrics) */}
-          {hasResults && inputType === 'url' && (
-            <motion.div
-              key={`results-${inputType}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <EmissionDashboard />
-            </motion.div>
-          )}
+          <AnimatePresence mode="wait">
+            {hasResults && inputType === 'url' && (
+              <ScrollReveal variant="fadeInUp" delay={0.3}>
+                <motion.div
+                  key={`results-${inputType}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-12"
+                >
+                  <EmissionDashboard />
+                </motion.div>
+              </ScrollReveal>
+            )}
 
-          {/* Results - GitHub Analysis (Code Optimization Only) */}
-          {hasResults && inputType === 'github' && githubData && (
-            <motion.div
-              key={`results-${inputType}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="space-y-12"
-            >
-              {/* Code Optimization Results */}
-              <OptimizationResults 
-                key={`optimization-${inputType}`}
-                data={githubData}
-              />
-            </motion.div>
-          )}
-        </motion.div>
+            {/* Results - GitHub Analysis (Code Optimization Only) */}
+            {hasResults && inputType === 'github' && githubData && (
+              <ScrollReveal variant="fadeInUp" delay={0.3}>
+                <motion.div
+                  key={`results-${inputType}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="space-y-12 mt-12"
+                >
+                  {/* Code Optimization Results */}
+                  <OptimizationResults 
+                    key={`optimization-${inputType}`}
+                    data={githubData}
+                  />
+                </motion.div>
+              </ScrollReveal>
+            )}
+          </AnimatePresence>
+        </ScrollReveal>
       </div>
 
       <Footer />
