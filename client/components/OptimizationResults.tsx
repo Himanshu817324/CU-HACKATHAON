@@ -78,24 +78,18 @@ for (let i = 0; i < numbers.length; i++) {
 
 export default function OptimizationResults({ data }: OptimizationResultsProps) {
   const optimizationData = data || mockOptimizationData;
-  const [optimizingFiles, setOptimizingFiles] = useState<Set<number>>(new Set());
-  const [optimizedFiles, setOptimizedFiles] = useState<Set<number>>(new Set());
+  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [isOptimized, setIsOptimized] = useState(false);
 
-  const handleOptimize = (index: number) => {
-    // Mark file as being optimized
-    setOptimizingFiles(prev => new Set(prev).add(index));
+  const handleOptimize = () => {
+    setIsOptimizing(true);
     
-    // Random delay between 5-10 seconds
-    const delay = Math.random() * 5000 + 5000;
+    // Random delay between 3-5 seconds
+    const delay = Math.random() * 2000 + 3000;
     
     setTimeout(() => {
-      // Reveal optimized code block and summary
-      setOptimizedFiles(prev => new Set(prev).add(index));
-      setOptimizingFiles(prev => {
-        const next = new Set(prev);
-        next.delete(index);
-        return next;
-      });
+      setIsOptimizing(false);
+      setIsOptimized(true);
     }, delay);
   };
 
@@ -126,33 +120,9 @@ export default function OptimizationResults({ data }: OptimizationResultsProps) 
             className="glass rounded-xl p-5 border border-white/10"
           >
             {/* File Name Header */}
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-[#34D399]" />
-                <h3 className="text-lg font-semibold text-[#34D399]">{file.fileName}</h3>
-              </div>
-              {/* Per-card Optimize Button */}
-              {!optimizedFiles.has(index) && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handleOptimize(index)}
-                  disabled={optimizingFiles.has(index)}
-                  className="px-4 py-2 bg-gradient-to-r from-[#34D399] to-[#38BDF8] hover:from-[#38BDF8] hover:to-[#34D399] text-[#071428] text-sm font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-[#34D399]/20"
-                >
-                  {optimizingFiles.has(index) ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Optimizing...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-4 h-4" />
-                      <span>Optimize</span>
-                    </>
-                  )}
-                </motion.button>
-              )}
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-2 h-2 rounded-full bg-[#34D399]" />
+              <h3 className="text-lg font-semibold text-[#34D399]">{file.fileName}</h3>
             </div>
 
             {/* Problem Description */}
@@ -184,12 +154,16 @@ export default function OptimizationResults({ data }: OptimizationResultsProps) 
 
             {/* Optimization Summary and Optimized Code Block - Animated Reveal */}
             <AnimatePresence>
-              {optimizedFiles.has(index) && (
+              {isOptimized && (
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.7, ease: 'easeOut' }}
+                  transition={{ 
+                    duration: 0.6, 
+                    ease: 'easeOut',
+                    delay: index * 0.1 
+                  }}
                   className="space-y-4"
                 >
                   {/* Optimization Summary */}
@@ -234,6 +208,43 @@ export default function OptimizationResults({ data }: OptimizationResultsProps) 
           </motion.div>
         ))}
       </div>
+
+      {/* Single Optimize Button at Bottom */}
+      {!isOptimized && (
+        <div className="flex justify-center mt-8 pt-6 border-t border-white/10">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleOptimize}
+            disabled={isOptimizing}
+            className="px-8 py-4 bg-gradient-to-r from-[#34D399] to-[#38BDF8] hover:from-[#38BDF8] hover:to-[#34D399] text-[#071428] font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-[#34D399]/20"
+          >
+            {isOptimizing ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>Optimizing...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-5 h-5" />
+                <span>Optimize All</span>
+              </>
+            )}
+          </motion.button>
+        </div>
+      )}
+
+      {/* Success Message */}
+      {isOptimized && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mt-6 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-green-900/20 border border-green-500/30"
+        >
+          <CheckCircle className="w-5 h-5 text-green-400" />
+          <p className="text-sm font-medium text-green-300">Optimization Complete</p>
+        </motion.div>
+      )}
     </motion.div>
   );
 }

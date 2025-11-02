@@ -7,13 +7,17 @@ import { useState } from 'react';
 interface HeroInputProps {
   onAnalyze?: (inputType: 'url' | 'github', inputValue?: string) => void;
   onInputTypeChange?: (inputType: 'url' | 'github') => void;
+  isAnalyzing?: boolean; // Parent's analyzing state
 }
 
-export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputProps) {
+export default function HeroInput({ onAnalyze, onInputTypeChange, isAnalyzing = false }: HeroInputProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [inputType, setInputType] = useState<'url' | 'github'>('url');
   const [error, setError] = useState<string | null>(null);
+  
+  // Use parent's isAnalyzing state for GitHub type, local isLoading for URL type
+  const showLoading = inputType === 'github' ? isAnalyzing : isLoading;
 
   const validateGitHubUrl = (url: string): boolean => {
     const githubRegex = /^(https?:\/\/)?(www\.)?github\.com\/[\w-]+\/[\w.-]+\/?$/;
@@ -45,8 +49,8 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
         return;
       }
       setError(null);
-      setIsLoading(true);
       // Pass control to parent for API call - parent will handle loading state
+      // Don't set isLoading here, let parent manage the loading UI
       onAnalyze?.(inputType, normalizedUrl);
       return;
     }
@@ -145,10 +149,10 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
-            disabled={isLoading || !input.trim()}
+            disabled={showLoading || !input.trim()}
             className="px-8 py-4 bg-primary text-white rounded-2xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? (
+            {showLoading ? (
               <div className="flex items-center space-x-2">
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 <span>Analyzing...</span>

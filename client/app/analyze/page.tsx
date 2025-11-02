@@ -1,12 +1,105 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, memo, useMemo } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HeroInput from '@/components/HeroInput';
 import OptimizationResults from '@/components/OptimizationResults';
 import EmissionDashboard from '@/components/Analyze/CarbonTracker/EmissionDashboard';
+
+// Hints array - defined outside component to avoid recreating on every render
+const HINTS = [
+  "Analyzing code complexity...",
+  "Detecting redundant functions...",
+  "Evaluating cyclomatic complexity...",
+  "Checking import optimizations...",
+  "Scanning file dependencies...",
+  "Identifying performance bottlenecks...",
+  "Analyzing memory usage patterns...",
+  "Detecting unused code blocks...",
+  "Evaluating bundle size optimizations...",
+  "Checking for code duplication...",
+  "Analyzing network request patterns...",
+  "Evaluating render performance...",
+  "Detecting inefficient algorithms...",
+  "Scanning for security vulnerabilities...",
+  "Analyzing API call patterns...",
+  "Checking component re-render patterns...",
+  "Evaluating state management efficiency...",
+  "Detecting memory leaks...",
+  "Analyzing async/await patterns...",
+  "Checking for optimal data structures..."
+];
+
+// Three-dot loader component with shifting forward animation
+function ThreeDotLoader() {
+  return (
+    <div className="flex items-center justify-center gap-3">
+      {[0, 1, 2].map((index) => (
+        <motion.div
+          key={index}
+          className="w-3 h-3 bg-primary rounded-full"
+          animate={{
+            y: [0, -12, 0],
+            opacity: [0.5, 1, 0.5],
+            scale: [1, 1.4, 1],
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            delay: index * 0.4,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// GitHub analyzing loader component - memoized to prevent unnecessary re-renders
+interface GitHubAnalyzingLoaderProps {
+  hints: string[];
+  currentHintIndex: number;
+}
+
+const GitHubAnalyzingLoader = memo(function GitHubAnalyzingLoader({ hints, currentHintIndex }: GitHubAnalyzingLoaderProps) {
+  const currentHint = useMemo(() => hints[currentHintIndex] || hints[0], [hints, currentHintIndex]);
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col items-center gap-6">
+        {/* Three-dot loader */}
+        <div className="py-4">
+          <ThreeDotLoader />
+        </div>
+
+        {/* Main message */}
+        <div className="space-y-4">
+          <p className="text-xl font-semibold text-text-primary">
+            Analyzing your GitHub repository...
+          </p>
+          
+          {/* Rotating hints - simplified animation for better performance */}
+          <div className="min-h-12 flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={currentHintIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                className="text-lg text-text-secondary"
+              >
+                {currentHint}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
 
 export default function Analyze() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -20,6 +113,22 @@ export default function Analyze() {
     codeOptimisationSummary: string;
   }[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [currentHintIndex, setCurrentHintIndex] = useState(0);
+
+  // Rotate through hints while analyzing - optimized with useMemo and faster interval
+  useEffect(() => {
+    if (!isAnalyzing || inputType !== 'github') {
+      setCurrentHintIndex(0);
+      return;
+    }
+
+    // Faster rotation to show more hints (1.5 seconds instead of 2)
+    const interval = setInterval(() => {
+      setCurrentHintIndex((prev) => (prev + 1) % HINTS.length);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [isAnalyzing, inputType]);
 
   const handleAnalyze = async (type: 'url' | 'github', inputValue?: string) => {
     // Reset results when starting a new analysis or when type changes
@@ -32,6 +141,7 @@ export default function Analyze() {
     setHasResults(false);
     setError(null);
     setGithubData(null);
+    setCurrentHintIndex(0);
 
     if (type === 'github' && inputValue) {
       try {
@@ -110,6 +220,7 @@ export default function Analyze() {
                 setHasResults(false);
                 setInputType(type);
               }}
+              isAnalyzing={isAnalyzing}
             />
           </div>
 
@@ -121,56 +232,7 @@ export default function Analyze() {
               className="text-center py-20"
             >
               {inputType === 'github' ? (
-                <div className="space-y-6">
-                  {/* Interactive Loader */}
-                  <div className="flex flex-col items-center gap-4">
-                    <div className="relative w-24 h-24">
-                      <motion.div
-                        className="absolute inset-0 border-4 border-primary/20 rounded-full"
-                      />
-                      <motion.div
-                        className="absolute inset-0 border-4 border-transparent border-t-primary rounded-full"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                      />
-                      <motion.div
-                        className="absolute inset-0 border-4 border-transparent border-r-accent rounded-full"
-                        animate={{ rotate: -360 }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                          className="w-8 h-8 bg-primary rounded-full"
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <p className="text-xl font-semibold text-text-primary">
-                        Analyzing your GitHub repository...
-                      </p>
-                      <p className="text-lg text-text-secondary">
-                        This may take around 40–50 seconds.
-                      </p>
-                      <motion.div
-                        className="mt-4 max-w-md mx-auto"
-                        initial={{ width: 0 }}
-                        animate={{ width: '100%' }}
-                        transition={{ duration: 45, ease: 'linear' }}
-                      >
-                        <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-primary via-accent to-success rounded-full"
-                            initial={{ width: 0 }}
-                            animate={{ width: '100%' }}
-                            transition={{ duration: 45, ease: 'linear' }}
-                          />
-                        </div>
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
+                <GitHubAnalyzingLoader hints={HINTS} currentHintIndex={currentHintIndex} />
               ) : (
                 <>
                   <div className="inline-block w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin mb-4" />
