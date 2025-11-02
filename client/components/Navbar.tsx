@@ -56,7 +56,7 @@ export default function Navbar() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/analyze"
+              href="/contact"
               className="px-6 py-2 bg-primary text-white rounded-2xl hover:bg-primary/90 transition-colors font-medium"
             >
               Get Started
@@ -96,7 +96,7 @@ export default function Navbar() {
               </div>
             )}
             <a
-              href="/analyze"
+              href="/contact"
               className="inline-block px-6 py-2 bg-primary text-white rounded-2xl"
             >
               Get Started

@@ -103,7 +103,7 @@ export default function Hero() {
               Analyze Now
             </motion.a>
             <motion.a
-              href="/analyze"
+              href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center justify-center px-8 py-4 glass border border-black/20 text-text-primary rounded-2xl font-medium hover:bg-gray-50 transition-colors"

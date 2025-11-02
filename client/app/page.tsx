@@ -440,7 +440,7 @@ export default function Home() {
                 Join thousands of developers building sustainable digital products with SustainAI
               </p>
               <motion.a
-                href="/analyze"
+                href="/contact"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-primary to-success text-white rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 group"
