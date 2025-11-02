@@ -5,10 +5,8 @@ import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HeroInput from '@/components/HeroInput';
-import ImpactBadge from '@/components/ImpactBadge';
-import RecommendationChat from '@/components/RecommendationChat';
 import OptimizationResults from '@/components/OptimizationResults';
-import { mockEmissionData } from '@/lib/mockData';
+import EmissionDashboard from '@/components/Analyze/CarbonTracker/EmissionDashboard';
 
 export default function Analyze() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -82,50 +80,8 @@ export default function Analyze() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="space-y-12"
             >
-              {/* Score Cards */}
-              <div className="flex flex-wrap justify-center gap-4">
-                <ImpactBadge label="A+" value={mockEmissionData.score} unit="score" />
-                <ImpactBadge label="312" value={312} trend={[400, 350, 320, 312]} />
-              </div>
-
-              {/* Breakdown */}
-              <div className="glass rounded-2xl p-8 border border-white/10">
-                <h2 className="text-2xl font-bold mb-6">Emissions Breakdown</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div>
-                    <div className="text-sm text-text-secondary mb-2">Scripts</div>
-                    <div className="text-3xl font-bold text-primary">
-                      {mockEmissionData.breakdown.scripts}%
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-text-secondary mb-2">Images</div>
-                    <div className="text-3xl font-bold text-accent">
-                      {mockEmissionData.breakdown.images}%
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-text-secondary mb-2">Backend</div>
-                    <div className="text-3xl font-bold text-success">
-                      {mockEmissionData.breakdown.backend}%
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-text-secondary mb-2">Hosting</div>
-                    <div className="text-3xl font-bold text-danger">
-                      {mockEmissionData.breakdown.hosting}%
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Recommendations */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6">AI Recommendations</h2>
-                <RecommendationChat recommendations={mockEmissionData.recommendations} />
-              </div>
+              <EmissionDashboard />
             </motion.div>
           )}
 
