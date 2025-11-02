@@ -158,7 +158,12 @@ export default function HeroInput({ onAnalyze, onInputTypeChange, isAnalyzing = 
                 <span>Analyzing...</span>
               </div>
             ) : (
-              inputType === 'github' ? 'Analyze Repository' : 'Analyze My Site'
+              <>
+                {inputType === 'github' ? 'Analyze Repository' : 'Analyze My Site'}
+                <span className="ml-2 text-xs opacity-90">
+                  ({inputType === 'github' ? '10' : '5'} credits)
+                </span>
+              </>
             )}
           </motion.button>
         </div>

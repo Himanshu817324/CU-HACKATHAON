@@ -1,15 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Gauge, Leaf, Zap, TrendingUp, Sparkles, Trophy, BarChart3, Activity, Clock, CheckCircle } from 'lucide-react';
+import { useState } from 'react';
+import { Gauge, Leaf, Zap, TrendingUp, Sparkles, Trophy, BarChart3, Activity, Clock, CheckCircle, Coins } from 'lucide-react';
 import { dashboardAnalytics, mockProjects } from '@/lib/mockData';
+import { useAuth } from '@/contexts/AuthContext';
 import StatCard from './components/StatCard';
 import Header from './components/Header';
 import LiveInsightsCard from './components/LiveInsightsCard';
 import EmissionLineChart from './components/EmissionLineChart';
 import BreakdownDonutChart from './components/BreakdownDonutChart';
+import CreditsModal from '@/components/CreditsModal';
 
 export default function DashboardPage() {
+  const [creditsModalOpen, setCreditsModalOpen] = useState(false);
+  const { user } = useAuth();
   const { 
     emissionScore, 
     co2Saved, 
@@ -46,7 +51,7 @@ export default function DashboardPage() {
         {/* Left Column - Main Stats (flexible width) */}
         <div className="flex-1 min-w-0">
           {/* Top Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
             <StatCard
               icon={Gauge}
               label="Emission Score"
@@ -69,6 +74,13 @@ export default function DashboardPage() {
               unit="%"
               color="#34D399"
               delay={0.3}
+            />
+            <StatCard
+              icon={Coins}
+              label="Credits"
+              value={user?.credits || 0}
+              color="#FACC15"
+              delay={0.4}
             />
           </div>
 
@@ -244,6 +256,39 @@ export default function DashboardPage() {
           ))}
         </div>
       </motion.div>
+
+      {/* Get More Credits Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.1 }}
+        className="glass rounded-2xl p-8 border border-white/10 bg-gradient-to-br from-accent/10 to-primary/10"
+      >
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#FACC15] to-[#34D399] flex items-center justify-center">
+              <Coins className="w-8 h-8 text-[#071428]" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold mb-1">Running Low on Credits?</h3>
+              <p className="text-text-secondary">
+                You currently have {user?.credits || 0} credits remaining
+              </p>
+            </div>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setCreditsModalOpen(true)}
+            className="px-8 py-4 bg-gradient-to-r from-[#FACC15] to-[#34D399] text-[#071428] font-bold rounded-2xl hover:shadow-lg hover:shadow-[#FACC15]/30 transition-all"
+          >
+            Get More Credits
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* Credits Modal */}
+      <CreditsModal isOpen={creditsModalOpen} onClose={() => setCreditsModalOpen(false)} />
     </div>
   );
 }

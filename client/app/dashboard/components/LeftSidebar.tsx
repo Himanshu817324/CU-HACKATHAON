@@ -11,10 +11,12 @@ import {
   LogOut,
   Menu,
   X,
+  Coins,
   LucideIcon
 } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import CreditBadge from '@/components/CreditBadge';
 
 interface NavItem {
   icon: LucideIcon;
@@ -28,6 +30,7 @@ const navItems: NavItem[] = [
   { icon: BarChart3, label: 'Analytics', path: '/dashboard/analytics' },
   { icon: FileText, label: 'Reports', path: '/dashboard/reports' },
   { icon: Users, label: 'Projects', path: '/dashboard/projects' },
+  { icon: Coins, label: 'Credits', path: '/dashboard/credits' },
   { icon: Settings, label: 'Settings', path: '/dashboard/settings' },
 ];
 
@@ -87,7 +90,7 @@ export default function LeftSidebar() {
       {/* User Section */}
       <div className="p-4 border-t border-white/10">
         <div className="glass rounded-xl p-4 mb-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#34D399] to-[#38BDF8] flex items-center justify-center">
               <span className="text-[#071428] font-bold text-sm">
                 {user?.name.charAt(0).toUpperCase()}
@@ -102,6 +105,11 @@ export default function LeftSidebar() {
               </p>
             </div>
           </div>
+          {user && (
+            <div className="pt-3 border-t border-white/5">
+              <CreditBadge credits={user.credits} />
+            </div>
+          )}
         </div>
 
         <button

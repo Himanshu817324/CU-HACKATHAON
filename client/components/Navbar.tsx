@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Leaf, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import CreditBadge from './CreditBadge';
+import { useAuth } from '@/contexts/AuthContext';
 
 const navItems = [
   { name: 'Dashboard', href: '/dashboard' },
@@ -13,6 +15,7 @@ const navItems = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <motion.nav
@@ -47,6 +50,9 @@ export default function Navbar() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
               </Link>
             ))}
+            {user && (
+              <CreditBadge credits={user.credits} />
+            )}
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -84,6 +90,11 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            {user && (
+              <div className="py-2">
+                <CreditBadge credits={user.credits} />
+              </div>
+            )}
             <a
               href="/analyze"
               className="inline-block px-6 py-2 bg-primary text-white rounded-2xl"

@@ -12,4 +12,6 @@ export { default as RecommendationChat } from './RecommendationChat';
 export { default as ReportPDFPreview } from './ReportPDFPreview';
 export { default as EmissionChart } from './EmissionChart';
 export { default as OptimizationResults } from './OptimizationResults';
+export { default as CreditBadge } from './CreditBadge';
+export { default as CreditsModal } from './CreditsModal';
 

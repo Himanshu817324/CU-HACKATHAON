@@ -7,6 +7,8 @@ import Footer from '@/components/Footer';
 import HeroInput from '@/components/HeroInput';
 import OptimizationResults from '@/components/OptimizationResults';
 import EmissionDashboard from '@/components/Analyze/CarbonTracker/EmissionDashboard';
+import CreditsModal from '@/components/CreditsModal';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Hints array - defined outside component to avoid recreating on every render
 const HINTS = [
@@ -102,6 +104,7 @@ const GitHubAnalyzingLoader = memo(function GitHubAnalyzingLoader({ hints, curre
 });
 
 export default function Analyze() {
+  const { user, deductCredits } = useAuth();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [hasResults, setHasResults] = useState(false);
   const [inputType, setInputType] = useState<'url' | 'github'>('url');
@@ -114,6 +117,7 @@ export default function Analyze() {
   }[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [currentHintIndex, setCurrentHintIndex] = useState(0);
+  const [creditsModalOpen, setCreditsModalOpen] = useState(false);
 
   // Rotate through hints while analyzing - optimized with useMemo and faster interval
   useEffect(() => {
@@ -131,6 +135,27 @@ export default function Analyze() {
   }, [isAnalyzing, inputType]);
 
   const handleAnalyze = async (type: 'url' | 'github', inputValue?: string) => {
+    // Check credits before analysis
+    const creditsNeeded = type === 'url' ? 5 : 10;
+    
+    if (!user) {
+      setError('Please log in to analyze projects.');
+      return;
+    }
+
+    if (user.credits < creditsNeeded) {
+      setError(`Insufficient credits. You need ${creditsNeeded} credits to analyze.`);
+      setCreditsModalOpen(true);
+      return;
+    }
+
+    // Deduct credits
+    const success = deductCredits(creditsNeeded);
+    if (!success) {
+      setError('Failed to deduct credits. Please try again.');
+      return;
+    }
+
     // Reset results when starting a new analysis or when type changes
     if (inputType !== type) {
       setHasResults(false);
@@ -315,6 +340,9 @@ export default function Analyze() {
       </div>
 
       <Footer />
+
+      {/* Credits Modal */}
+      <CreditsModal isOpen={creditsModalOpen} onClose={() => setCreditsModalOpen(false)} />
     </div>
   );
 }

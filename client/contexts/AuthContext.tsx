@@ -9,6 +9,7 @@ interface User {
   email: string;
   role: 'admin' | 'user';
   avatar?: string;
+  credits: number;
 }
 
 interface AuthContextType {
@@ -16,6 +17,8 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
+  deductCredits: (amount: number) => boolean;
+  addCredits: (amount: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,7 +33,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        // Ensure credits field exists for legacy users
+        if (!parsedUser.credits) {
+          parsedUser.credits = parsedUser.role === 'admin' ? 1000 : 100;
+          localStorage.setItem('user', JSON.stringify(parsedUser));
+        }
+        setUser(parsedUser);
       } catch (e) {
         console.error('Failed to parse stored user:', e);
       }
@@ -52,6 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         name: 'Admin User',
         email: 'admin@sustainai.com',
         role: 'admin',
+        credits: 1000,
       };
       setUser(adminUser);
       localStorage.setItem('user', JSON.stringify(adminUser));
@@ -66,6 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         name: email.split('@')[0],
         email,
         role: 'user',
+        credits: 100,
       };
       setUser(regularUser);
       localStorage.setItem('user', JSON.stringify(regularUser));
@@ -83,8 +94,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     router.push('/login');
   };
 
+  const deductCredits = (amount: number): boolean => {
+    if (!user || user.credits < amount) {
+      return false;
+    }
+    const updatedUser = { ...user, credits: user.credits - amount };
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    return true;
+  };
+
+  const addCredits = (amount: number) => {
+    if (!user) return;
+    const updatedUser = { ...user, credits: user.credits + amount };
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading, deductCredits, addCredits }}>
       {children}
     </AuthContext.Provider>
   );
