@@ -35,7 +35,7 @@ export default function Navbar() {
             >
               <Leaf className="w-8 h-8 text-primary" />
             </motion.div>
-            <span className="text-2xl font-bold bg-linear-to-r from-primary to-success bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
               SustainAI
             </span>
           </Link>

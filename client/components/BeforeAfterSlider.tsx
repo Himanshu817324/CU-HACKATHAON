@@ -49,7 +49,7 @@ export default function BeforeAfterSlider({ beforeValue, afterValue, label }: Be
         {/* Slider */}
         <div className="relative h-2 rounded-full bg-white/10 overflow-hidden">
           <motion.div
-            className="absolute inset-0 bg-linear-to-r from-danger to-primary"
+            className="absolute inset-0 bg-gradient-to-r from-danger to-primary"
             style={{ width: '100%' }}
           />
           <motion.div

@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Thank you for contacting us! We'll get back to you soon.',
+        message: "Thank you for contacting us! We'll get back to you soon.",
       },
       { status: 200 }
     );
