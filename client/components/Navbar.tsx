@@ -1,20 +1,22 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Leaf, Menu, X } from 'lucide-react';
+import { Leaf, Menu, X, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import CreditBadge from './CreditBadge';
 import { useAuth } from '@/contexts/AuthContext';
+import GreenScore from './GreenScore';
 
 const navItems = [
   { name: 'Dashboard', href: '/dashboard' },
   { name: 'Analyze', href: '/analyze' },
-  { name: 'Reports', href: '/report' },
+  { name: 'Green Score', href: '/green-score' },
 ];
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [greenScoreOpen, setGreenScoreOpen] = useState(false);
   const { user } = useAuth();
 
   return (
@@ -53,6 +55,7 @@ export default function Navbar() {
             {user && (
               <CreditBadge credits={user.credits} />
             )}
+            
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -104,6 +107,9 @@ export default function Navbar() {
           </motion.div>
         )}
       </div>
+
+      {/* Green Score Modal */}
+      <GreenScore isOpen={greenScoreOpen} onClose={() => setGreenScoreOpen(false)} />
     </motion.nav>
   );
 }

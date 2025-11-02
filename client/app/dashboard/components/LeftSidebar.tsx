@@ -28,7 +28,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { icon: Home, label: 'Dashboard', path: '/dashboard' },
   { icon: BarChart3, label: 'Analytics', path: '/dashboard/analytics' },
-  { icon: FileText, label: 'Reports', path: '/dashboard/reports' },
+  { icon: FileText, label: 'Reports', path: '/report' },
   { icon: Users, label: 'Projects', path: '/dashboard/projects' },
   { icon: Coins, label: 'Credits', path: '/dashboard/credits' },
   { icon: Settings, label: 'Settings', path: '/dashboard/settings' },
