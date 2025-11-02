@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Leaf, Menu, X, Sparkles } from 'lucide-react';
+import { Leaf, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import CreditBadge from './CreditBadge';
@@ -23,7 +23,7 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="fixed top-0 left-0 right-0 z-50 glass border-b border-black/10"
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/70 border-b border-black/10"
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
