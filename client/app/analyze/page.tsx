@@ -182,8 +182,36 @@ export default function Analyze() {
         setError(errorMessage);
         setIsAnalyzing(false);
       }
+    } else if (type === 'url' && inputValue) {
+      // For URL type, send POST request to the API
+      try {
+        const response = await fetch('http://34.63.195.56/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ url: inputValue })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to analyze website');
+        }
+
+        const apiResponse = await response.json();
+        
+        // Store the response for later use
+        localStorage.setItem('websiteAnalysis', JSON.stringify(apiResponse));
+        
+        setIsAnalyzing(false);
+        setHasResults(true);
+      } catch (err) {
+        console.error('Error analyzing website:', err);
+        const errorMessage = err instanceof Error ? err.message : 'Failed to analyze website. Please try again.';
+        setError(errorMessage);
+        setIsAnalyzing(false);
+      }
     } else {
-      // For URL type, use the existing mock flow
+      // Fallback for URL type without input
       setTimeout(() => {
         setIsAnalyzing(false);
         setHasResults(true);

@@ -80,22 +80,81 @@ export default function EmissionDashboard() {
   const [data, setData] = useState<EmissionData>(mockEmissionData);
 
   useEffect(() => {
-    // TODO: Replace with API call later
-    // const fetchData = async () => {
-    //   const res = await fetch('/api/emission');
-    //   const json = await res.json();
-    //   setData(json);
-    // };
-    // fetchData();
-    setData(mockEmissionData);
+    // Get data from localStorage if it exists (set by analyze page)
+    const storedData = localStorage.getItem('websiteAnalysis');
+    if (storedData) {
+      try {
+        const apiResponse = JSON.parse(storedData);
+        
+        // Map API response to our component's data structure
+        if (apiResponse.analysis) {
+          const analysis = apiResponse.analysis;
+          const mappedData: EmissionData = {
+            url: analysis.url || 'Unknown URL',
+            metrics: {
+              navigation: {
+                duration: Number(analysis.metrics?.navigation?.duration) || 0,
+                ttfb: Number(analysis.metrics?.navigation?.ttfb) || 0,
+                loadTime: Number(analysis.metrics?.navigation?.loadTime) || 0
+              },
+              resources: {
+                totalResources: Number(analysis.metrics?.resources?.totalResources) || 0,
+                totalTransferSize: Number(analysis.metrics?.resources?.totalTransferSize) || 0,
+                byType: analysis.metrics?.resources?.byType || {}
+              },
+              paint: analysis.metrics?.paint || {},
+              memory: {
+                jsHeapUsed: analysis.metrics?.memory?.jsHeapUsed || '0 MB',
+                jsHeapTotal: analysis.metrics?.memory?.jsHeapTotal || '0 MB'
+              }
+            },
+            co2Estimate: {
+              co2: {
+                total: Number(analysis.co2) || 0,
+                dataCenterCO2e: 0, // Not provided in API response
+                networkCO2e: 0, // Not provided in API response
+                consumerDeviceCO2e: 0, // Not provided in API response
+                rating: analysis.green ? 'A' : 'C' // Simple rating based on green status
+              },
+              green: analysis.green || false,
+              variables: {
+                bytes: Number(analysis.totalTransferBytes) || 0,
+                gridIntensity: {
+                  device: { value: Number(analysis.variables?.gridIntensity?.device?.value) || 494 },
+                  dataCenter: { value: Number(analysis.variables?.gridIntensity?.dataCenter?.value) || 494 },
+                  network: { value: Number(analysis.variables?.gridIntensity?.network?.value) || 494 }
+                }
+              }
+            }
+          };
+          
+          setData(mappedData);
+        } else {
+          // If no analysis field, use mock data
+          setData(mockEmissionData);
+        }
+      } catch (error) {
+        console.error('Error parsing stored data:', error);
+        setData(mockEmissionData);
+      }
+    } else {
+      // Fallback to mock data if nothing stored
+      setData(mockEmissionData);
+    }
   }, []);
 
   // Format CO2 values
   const formatCO2 = (value: number) => {
-    if (value < 0.001) {
-      return `${(value * 1000).toFixed(3)} mg`;
+    // Ensure value is a number
+    const numValue = typeof value === 'number' && !isNaN(value) ? value : parseFloat(String(value)) || 0;
+    
+    if (numValue === 0 || isNaN(numValue)) {
+      return '0 g';
     }
-    return `${value.toFixed(6)} g`;
+    if (numValue < 0.001) {
+      return `${(numValue * 1000).toFixed(3)} mg`;
+    }
+    return `${numValue.toFixed(6)} g`;
   };
 
   // Calculate total CO2 in grams
@@ -141,12 +200,12 @@ export default function EmissionDashboard() {
     }
   ];
 
-  // Pie chart data for CO2 distribution
+  // Pie chart data for CO2 distribution - filter out zero values
   const co2Distribution = [
     { name: 'Data Center', value: data.co2Estimate.co2.dataCenterCO2e * 1000, color: '#38BDF8' },
     { name: 'Network', value: data.co2Estimate.co2.networkCO2e * 1000, color: '#FACC15' },
     { name: 'Device', value: data.co2Estimate.co2.consumerDeviceCO2e * 1000, color: '#34D399' }
-  ];
+  ].filter(item => item.value > 0); // Only show non-zero values
 
   // Bar chart data for performance metrics
   const performanceMetrics = [
@@ -247,31 +306,40 @@ export default function EmissionDashboard() {
           className="glass rounded-2xl p-6 border border-white/10"
         >
           <h3 className="text-xl font-bold mb-6">CO₂ Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={co2Distribution}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={(props: any) => {
-                  const name = props.name || '';
-                  const percent = props.percent || 0;
-                  return `${name}: ${(percent * 100).toFixed(0)}%`;
-                }}
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {co2Distribution.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip 
-                formatter={(value: number) => `${value.toFixed(3)} mg CO₂`}
-              />
-            </PieChart>
-          </ResponsiveContainer>
+          {co2Distribution.length > 0 ? (
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={co2Distribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={(props: any) => {
+                    const name = props.name || '';
+                    const percent = props.percent || 0;
+                    return `${name}: ${(percent * 100).toFixed(0)}%`;
+                  }}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {co2Distribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  formatter={(value: number) => `${value.toFixed(3)} mg CO₂`}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex items-center justify-center h-[300px]">
+              <p className="text-text-secondary text-center">
+                CO₂ breakdown data not available.<br />
+                Showing only total CO₂ emissions.
+              </p>
+            </div>
+          )}
         </motion.div>
 
         {/* Performance Metrics Bar Chart */}
@@ -337,7 +405,7 @@ export default function EmissionDashboard() {
               </div>
               <div>
                 <div className="text-sm text-text-secondary mb-1">TTFB</div>
-                <div className="text-lg font-bold text-accent">{data.metrics.navigation.ttfb.toFixed(2)} ms</div>
+                <div className="text-lg font-bold text-accent">{Number(data.metrics.navigation.ttfb).toFixed(2)} ms</div>
               </div>
               <div>
                 <div className="text-sm text-text-secondary mb-1">Load Time</div>
