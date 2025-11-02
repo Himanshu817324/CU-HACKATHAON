@@ -5,10 +5,36 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { url, type } = body;
 
-    // Simulate analysis delay
+    // If type is 'url', proxy to the GCP backend
+    if (type === 'url' && url) {
+      try {
+        // Forward request to GCP HTTP backend
+        const response = await fetch('http://34.63.195.56/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ url })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to analyze website');
+        }
+
+        const data = await response.json();
+        return NextResponse.json(data);
+      } catch (error) {
+        console.error('Error proxying to GCP backend:', error);
+        return NextResponse.json(
+          { success: false, error: 'Failed to analyze website' },
+          { status: 500 }
+        );
+      }
+    }
+
+    // For GitHub type or fallback, return mock response
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    // Mock response
     const response = {
       success: true,
       data: {

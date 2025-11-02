@@ -183,14 +183,14 @@ export default function Analyze() {
         setIsAnalyzing(false);
       }
     } else if (type === 'url' && inputValue) {
-      // For URL type, send POST request to the API
+      // For URL type, send POST request to our API route (which proxies to GCP)
       try {
-        const response = await fetch('http://34.63.195.56/', {
+        const response = await fetch('/api/analyze', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ url: inputValue })
+          body: JSON.stringify({ url: inputValue, type: 'url' })
         });
 
         if (!response.ok) {

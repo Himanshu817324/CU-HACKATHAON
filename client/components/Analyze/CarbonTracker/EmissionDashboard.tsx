@@ -89,6 +89,26 @@ export default function EmissionDashboard() {
         // Map API response to our component's data structure
         if (apiResponse.analysis) {
           const analysis = apiResponse.analysis;
+          
+          // Extract emissions data - it could be in emissions.emissions or top-level emissions
+          const emissions = apiResponse.emissions || analysis.emissions;
+          const co2Data = emissions?.emissions?.co2 || emissions?.co2 || {};
+          const variables = emissions?.emissions?.variables || emissions?.variables || {};
+          const green = emissions?.emissions?.green ?? emissions?.green ?? false;
+          
+          // Calculate CO2 breakdown based on grid intensity proportions
+          const deviceGI = Number(variables.gridIntensity?.device?.value) || 494;
+          const dataCenterGI = Number(variables.gridIntensity?.dataCenter?.value) || 494;
+          const networkGI = Number(variables.gridIntensity?.network?.value) || 494;
+          const totalGI = deviceGI + dataCenterGI + networkGI;
+          
+          const totalCO2 = Number(co2Data.total) || 0;
+          
+          // Calculate proportional CO2 breakdown
+          const deviceCO2e = totalGI > 0 ? (totalCO2 * deviceGI) / totalGI : 0;
+          const dataCenterCO2e = totalGI > 0 ? (totalCO2 * dataCenterGI) / totalGI : 0;
+          const networkCO2e = totalGI > 0 ? (totalCO2 * networkGI) / totalGI : 0;
+          
           const mappedData: EmissionData = {
             url: analysis.url || 'Unknown URL',
             metrics: {
@@ -110,19 +130,19 @@ export default function EmissionDashboard() {
             },
             co2Estimate: {
               co2: {
-                total: Number(analysis.co2) || 0,
-                dataCenterCO2e: 0, // Not provided in API response
-                networkCO2e: 0, // Not provided in API response
-                consumerDeviceCO2e: 0, // Not provided in API response
-                rating: analysis.green ? 'A' : 'C' // Simple rating based on green status
+                total: totalCO2,
+                dataCenterCO2e: dataCenterCO2e,
+                networkCO2e: networkCO2e,
+                consumerDeviceCO2e: deviceCO2e,
+                rating: co2Data.rating || (green ? 'A' : 'C')
               },
-              green: analysis.green || false,
+              green: green,
               variables: {
                 bytes: Number(analysis.totalTransferBytes) || 0,
                 gridIntensity: {
-                  device: { value: Number(analysis.variables?.gridIntensity?.device?.value) || 494 },
-                  dataCenter: { value: Number(analysis.variables?.gridIntensity?.dataCenter?.value) || 494 },
-                  network: { value: Number(analysis.variables?.gridIntensity?.network?.value) || 494 }
+                  device: { value: deviceGI },
+                  dataCenter: { value: dataCenterGI },
+                  network: { value: networkGI }
                 }
               }
             }
