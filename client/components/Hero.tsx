@@ -2,10 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { useState, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars, Sphere, MeshDistortMaterial } from '@react-three/drei';
-import HeroInput from './HeroInput';
 
 // Rotating Earth Component
 function RotatingEarth() {
@@ -25,7 +24,6 @@ function RotatingEarth() {
 }
 
 export default function Hero() {
-  const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -89,13 +87,29 @@ export default function Hero() {
             Real carbon estimates for your sites and repos — instant insights, code-level fixes, measurable impact.
           </motion.p>
 
-          {/* HeroInput */}
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <HeroInput onAnalyze={() => setHasAnalyzed(true)} />
+            <motion.a
+              href="/analyze"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white rounded-2xl font-medium hover:bg-primary/90 transition-colors"
+            >
+              Analyze Now
+            </motion.a>
+            <motion.a
+              href="/analyze"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center px-8 py-4 glass border border-white/20 text-text-primary rounded-2xl font-medium hover:bg-white/10 transition-colors"
+            >
+              Get Started
+            </motion.a>
           </motion.div>
 
           {/* Secondary CTA */}
@@ -105,13 +119,7 @@ export default function Hero() {
             transition={{ delay: 0.6 }}
             className="mt-8"
           >
-            <a
-              href="#demo"
-              className="inline-flex items-center space-x-2 text-text-secondary hover:text-text-primary transition-colors group"
-            >
-              <span>View Live Demo</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+           
           </motion.div>
         </motion.div>
       </div>
