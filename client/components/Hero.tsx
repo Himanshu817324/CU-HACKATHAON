@@ -2,8 +2,27 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Stars, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import HeroInput from './HeroInput';
+
+// Rotating Earth Component
+function RotatingEarth() {
+  return (
+    <Sphere args={[1.8, 64, 64]} position={[0, 0, 0]}>
+      <MeshDistortMaterial
+        color="#00B87C"
+        attach="material"
+        roughness={0.5}
+        speed={0.5}
+        distort={0.1}
+        opacity={0.15}
+        transparent
+      />
+    </Sphere>
+  );
+}
 
 export default function Hero() {
   const [hasAnalyzed, setHasAnalyzed] = useState(false);
@@ -13,6 +32,20 @@ export default function Hero() {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <ParticleNetwork />
+        
+        {/* 3D Rotating Earth - Subtle background illustration */}
+        <div className="absolute inset-0 z-0 opacity-40">
+          <Canvas camera={{ position: [0, 0, 5] }}>
+            <Suspense fallback={null}>
+              <ambientLight intensity={0.4} />
+              <directionalLight position={[5, 3, 5]} intensity={1} />
+              <Stars radius={80} depth={50} count={3000} factor={4} fade />
+              <RotatingEarth />
+              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
+            </Suspense>
+          </Canvas>
+        </div>
+        
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-midnight to-midnight" />
       </div>
 
