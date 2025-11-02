@@ -5,7 +5,7 @@ import { Search, GitBranch } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeroInputProps {
-  onAnalyze?: (inputType: 'url' | 'github') => void;
+  onAnalyze?: (inputType: 'url' | 'github', inputValue?: string) => void;
   onInputTypeChange?: (inputType: 'url' | 'github') => void;
 }
 
@@ -13,17 +13,49 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [inputType, setInputType] = useState<'url' | 'github'>('url');
+  const [error, setError] = useState<string | null>(null);
+
+  const validateGitHubUrl = (url: string): boolean => {
+    const githubRegex = /^(https?:\/\/)?(www\.)?github\.com\/[\w-]+\/[\w.-]+\/?$/;
+    return githubRegex.test(url.trim());
+  };
+
+  const normalizeGitHubUrl = (url: string): string => {
+    let normalized = url.trim();
+    // If user enters owner/repo format, convert to full URL
+    if (!normalized.includes('github.com') && !normalized.startsWith('http')) {
+      normalized = `https://github.com/${normalized}`;
+    }
+    // Ensure it starts with https://
+    if (!normalized.startsWith('http://') && !normalized.startsWith('https://')) {
+      normalized = `https://${normalized}`;
+    }
+    return normalized;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
+    // Validate GitHub URL if GitHub tab is selected
+    if (inputType === 'github') {
+      const normalizedUrl = normalizeGitHubUrl(input);
+      if (!validateGitHubUrl(normalizedUrl)) {
+        setError('Please enter a valid GitHub repository URL.');
+        return;
+      }
+      setError(null);
+      setIsLoading(true);
+      // Pass control to parent for API call - parent will handle loading state
+      onAnalyze?.(inputType, normalizedUrl);
+      return;
+    }
+
+    // For URL type, proceed as before
     setIsLoading(true);
-    
-    // Simulate analysis
     setTimeout(() => {
       setIsLoading(false);
-      onAnalyze?.(inputType);
+      onAnalyze?.(inputType, input.trim());
     }, 2000);
   };
 
@@ -42,6 +74,8 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
               onClick={() => {
                 const newType = 'url';
                 setInputType(newType);
+                setIsLoading(false);
+                setError(null);
                 onInputTypeChange?.(newType);
               }}
               className={`flex-1 md:flex-none px-4 py-2 rounded-xl transition-all ${
@@ -60,6 +94,8 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
               onClick={() => {
                 const newType = 'github';
                 setInputType(newType);
+                setIsLoading(false);
+                setError(null);
                 onInputTypeChange?.(newType);
               }}
               className={`flex-1 md:flex-none px-4 py-2 rounded-xl transition-all ${
@@ -80,14 +116,28 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
             <input
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                setInput(e.target.value);
+                setError(null); // Clear error on input change
+              }}
               placeholder={
                 inputType === 'url'
                   ? 'https://example.com'
-                  : 'owner/repository'
+                  : 'https://github.com/owner/repo'
               }
-              className="w-full px-6 py-4 rounded-2xl glass border border-white/10 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white/5 text-text-primary placeholder:text-text-secondary"
+              className={`w-full px-6 py-4 rounded-2xl glass border ${
+                error ? 'border-danger/50' : 'border-white/10'
+              } focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white/5 text-text-primary placeholder:text-text-secondary`}
             />
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute top-full left-0 mt-2 text-sm text-danger"
+              >
+                {error}
+              </motion.div>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -104,7 +154,7 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
                 <span>Analyzing...</span>
               </div>
             ) : (
-              'Analyze My Site'
+              inputType === 'github' ? 'Analyze Repository' : 'Analyze My Site'
             )}
           </motion.button>
         </div>
@@ -128,16 +178,16 @@ export default function HeroInput({ onAnalyze, onInputTypeChange }: HeroInputPro
               github.com
             </button>
           </>
-        ) : (
+          ) : (
           <>
             <button
-              onClick={() => setInput('vercel/next.js')}
+              onClick={() => setInput('https://github.com/vercel/next.js')}
               className="text-xs px-3 py-1 rounded-full glass border border-white/10 text-text-secondary hover:text-text-primary transition-colors"
             >
               vercel/next.js
             </button>
             <button
-              onClick={() => setInput('facebook/react')}
+              onClick={() => setInput('https://github.com/facebook/react')}
               className="text-xs px-3 py-1 rounded-full glass border border-white/10 text-text-secondary hover:text-text-primary transition-colors"
             >
               facebook/react
