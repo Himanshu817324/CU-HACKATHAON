@@ -32,7 +32,7 @@ export default function BeforeAfterSlider({ beforeValue, afterValue, label }: Be
 
   return (
     <div className="relative w-full">
-      <div className="glass rounded-2xl p-8 border border-white/10">
+      <div className="glass rounded-2xl p-8 border border-black/10">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-semibold">{label}</h3>
           <div className="text-right">

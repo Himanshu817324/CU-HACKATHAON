@@ -72,7 +72,7 @@ export default function HeroInput({ onAnalyze, onInputTypeChange, isAnalyzing = 
       <form onSubmit={handleSubmit} className="relative">
         <div className="flex flex-col md:flex-row gap-3">
           {/* Input Type Toggle */}
-          <div className="flex w-full md:w-auto rounded-2xl glass border border-white/10 p-1">
+          <div className="flex w-full md:w-auto rounded-2xl glass border border-black/10 p-1">
             <button
               type="button"
               onClick={() => {
@@ -130,8 +130,8 @@ export default function HeroInput({ onAnalyze, onInputTypeChange, isAnalyzing = 
                   : 'https://github.com/owner/repo'
               }
               className={`w-full px-6 py-4 rounded-2xl glass border ${
-                error ? 'border-danger/50' : 'border-white/10'
-              } focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white/5 text-text-primary placeholder:text-text-secondary`}
+                error ? 'border-danger/50' : 'border-black/10'
+              } focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white text-text-primary placeholder:text-text-secondary`}
             />
             {error && (
               <motion.div
@@ -154,7 +154,7 @@ export default function HeroInput({ onAnalyze, onInputTypeChange, isAnalyzing = 
           >
             {showLoading ? (
               <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                 <span>Analyzing...</span>
               </div>
             ) : (
@@ -176,13 +176,13 @@ export default function HeroInput({ onAnalyze, onInputTypeChange, isAnalyzing = 
           <>
             <button
               onClick={() => setInput('https://google.com')}
-              className="text-xs px-3 py-1 rounded-full glass border border-white/10 text-text-secondary hover:text-text-primary transition-colors"
+              className="text-xs px-3 py-1 rounded-full glass border border-black/10 text-text-secondary hover:text-text-primary transition-colors"
             >
               google.com
             </button>
             <button
               onClick={() => setInput('https://github.com')}
-              className="text-xs px-3 py-1 rounded-full glass border border-white/10 text-text-secondary hover:text-text-primary transition-colors"
+              className="text-xs px-3 py-1 rounded-full glass border border-black/10 text-text-secondary hover:text-text-primary transition-colors"
             >
               github.com
             </button>
@@ -191,13 +191,13 @@ export default function HeroInput({ onAnalyze, onInputTypeChange, isAnalyzing = 
           <>
             <button
               onClick={() => setInput('https://github.com/vercel/next.js')}
-              className="text-xs px-3 py-1 rounded-full glass border border-white/10 text-text-secondary hover:text-text-primary transition-colors"
+              className="text-xs px-3 py-1 rounded-full glass border border-black/10 text-text-secondary hover:text-text-primary transition-colors"
             >
               vercel/next.js
             </button>
             <button
               onClick={() => setInput('https://github.com/facebook/react')}
-              className="text-xs px-3 py-1 rounded-full glass border border-white/10 text-text-secondary hover:text-text-primary transition-colors"
+              className="text-xs px-3 py-1 rounded-full glass border border-black/10 text-text-secondary hover:text-text-primary transition-colors"
             >
               facebook/react
             </button>

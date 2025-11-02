@@ -11,7 +11,7 @@ export default function EmissionChart({ data, total }: EmissionChartProps) {
   const sortedData = [...data].sort((a, b) => b.value - a.value);
 
   return (
-    <div className="glass rounded-2xl p-8 border border-white/10">
+    <div className="glass rounded-2xl p-8 border border-black/10">
       <h3 className="text-2xl font-bold mb-6">Emissions Breakdown</h3>
       <div className="space-y-4">
         {sortedData.map((item, index) => {

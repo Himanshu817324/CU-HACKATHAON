@@ -31,7 +31,7 @@ export default function EfficiencyBarChart({ data }: EfficiencyBarChartProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="glass rounded-2xl p-6 border border-white/10"
+      className="glass rounded-2xl p-6 border border-black/10"
     >
       <div className="flex items-center gap-2 mb-6">
         <Zap className="w-5 h-5 text-[#FACC15]" />

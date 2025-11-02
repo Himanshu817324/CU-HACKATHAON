@@ -33,7 +33,7 @@ export default function ReportsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="glass rounded-xl p-6 border border-white/10 hover:border-[#34D399]/30 transition-all cursor-pointer"
+            className="glass rounded-xl p-6 border border-black/10 hover:border-[#34D399]/30 transition-all cursor-pointer"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -54,7 +54,7 @@ export default function ReportsPage() {
                   </div>
                 </div>
               </div>
-              <button className="p-2 rounded-lg hover:bg-white/5 transition-colors">
+              <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                 <Download className="w-5 h-5" />
               </button>
             </div>

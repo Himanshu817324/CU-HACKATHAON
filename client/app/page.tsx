@@ -111,7 +111,7 @@ export default function Home() {
               transition={{ delay: index * 0.2 }}
               className="relative"
             >
-              <div className="glass rounded-2xl p-8 border border-white/10 max-w-xs">
+              <div className="glass rounded-2xl p-8 border border-black/10 max-w-xs">
                 <div className="text-6xl font-bold text-primary/20 mb-4">{item.step}</div>
                 <h3 className="text-2xl font-semibold mb-3">{item.title}</h3>
                 <p className="text-text-secondary">{item.description}</p>
@@ -148,7 +148,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="glass rounded-2xl p-8 border border-white/10 text-center"
+            className="glass rounded-2xl p-8 border border-black/10 text-center"
           >
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-4">
               <Leaf className="w-8 h-8 text-primary" />
@@ -167,7 +167,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="glass rounded-2xl p-8 border border-white/10 text-center"
+            className="glass rounded-2xl p-8 border border-black/10 text-center"
           >
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-4">
               <Users className="w-8 h-8 text-primary" />
@@ -186,7 +186,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="glass rounded-2xl p-8 border border-white/10 text-center"
+            className="glass rounded-2xl p-8 border border-black/10 text-center"
           >
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-4">
               <Zap className="w-8 h-8 text-primary" />
@@ -210,7 +210,7 @@ export default function Home() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass border border-white/10 mb-6">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass border border-black/10 mb-6">
               <Trees className="w-4 h-4 text-primary" />
               <span className="text-sm text-text-secondary">Sustainability</span>
             </div>
@@ -250,7 +250,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="glass rounded-3xl p-8 border border-white/10 relative overflow-hidden">
+            <div className="glass rounded-3xl p-8 border border-black/10 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-success/10 opacity-50" />
               <div className="relative z-10">
                 <Globe className="w-16 h-16 text-primary mb-6 mx-auto" />
@@ -287,7 +287,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="glass rounded-2xl p-8 border border-white/10"
+            className="glass rounded-2xl p-8 border border-black/10"
           >
             <div className="flex items-start space-x-4 mb-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-success flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
@@ -307,7 +307,7 @@ export default function Home() {
               page load emissions from 4.2g to 1.1g CO₂ per page view. 
               Our 10M monthly visitors now generate less carbon than before."
             </p>
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-black/10">
               <span className="text-sm text-text-secondary">Saved: ~3.1 tons CO₂/month</span>
             </div>
           </motion.div>
@@ -317,7 +317,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="glass rounded-2xl p-8 border border-white/10"
+            className="glass rounded-2xl p-8 border border-black/10"
           >
             <div className="flex items-start space-x-4 mb-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-success flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
@@ -337,7 +337,7 @@ export default function Home() {
               our API responses, switched to green hosting, and implemented lazy 
               loading across our dashboard."
             </p>
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-black/10">
               <span className="text-sm text-text-secondary">Saved: ~850 kg CO₂/month</span>
             </div>
           </motion.div>
@@ -350,7 +350,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass rounded-3xl p-12 text-center border border-white/10"
+          className="glass rounded-3xl p-12 text-center border border-black/10"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Ready to reduce your digital footprint?

@@ -106,7 +106,7 @@ export default function DashboardPage() {
               return (
                 <div
                   key={index}
-                  className="glass rounded-xl p-4 border border-white/10 hover:border-opacity-30 transition-all"
+                  className="glass rounded-xl p-4 border border-black/10 hover:border-opacity-30 transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <div 
@@ -137,7 +137,7 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="glass rounded-2xl p-6 border border-white/10"
+            className="glass rounded-2xl p-6 border border-black/10"
           >
             <div className="flex items-center gap-2 mb-6">
               <Clock className="w-5 h-5 text-[#34D399]" />
@@ -152,7 +152,7 @@ export default function DashboardPage() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 + index * 0.1 }}
-                    className="flex items-start gap-3 pb-4 border-b border-white/5 last:border-0 last:pb-0"
+                    className="flex items-start gap-3 pb-4 border-b border-black/5 last:border-0 last:pb-0"
                   >
                     <div 
                       className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
@@ -175,7 +175,7 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="glass rounded-2xl p-6 border border-white/10"
+            className="glass rounded-2xl p-6 border border-black/10"
           >
             <div className="flex items-center gap-2 mb-6">
               <Sparkles className="w-5 h-5 text-[#38BDF8]" />
@@ -188,7 +188,7 @@ export default function DashboardPage() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8 + index * 0.1 }}
-                  className="flex items-start gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+                  className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer"
                 >
                   <div className="w-2 h-2 rounded-full bg-[#38BDF8] mt-2 shrink-0" />
                   <div className="flex-1">
@@ -216,7 +216,7 @@ export default function DashboardPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.9 }}
-        className="glass rounded-2xl p-6 border border-white/10"
+        className="glass rounded-2xl p-6 border border-black/10"
       >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
@@ -231,7 +231,7 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0 + index * 0.1 }}
-              className="p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all cursor-pointer"
+              className="p-4 rounded-xl bg-gray-50 hover:bg-gray-100 border border-black/10 transition-all cursor-pointer"
             >
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-semibold">{project.name}</h4>
@@ -262,7 +262,7 @@ export default function DashboardPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.1 }}
-        className="glass rounded-2xl p-8 border border-white/10 bg-gradient-to-br from-accent/10 to-primary/10"
+        className="glass rounded-2xl p-8 border border-black/10 bg-gradient-to-br from-accent/10 to-primary/10"
       >
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">

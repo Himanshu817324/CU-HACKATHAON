@@ -25,7 +25,7 @@ export default function SettingsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass rounded-xl p-6 border border-white/10"
+          className="glass rounded-xl p-6 border border-black/10"
         >
           <div className="flex items-center gap-3 mb-4">
             <Palette className="w-5 h-5 text-[#34D399]" />
@@ -47,7 +47,7 @@ export default function SettingsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="glass rounded-xl p-6 border border-white/10"
+          className="glass rounded-xl p-6 border border-black/10"
         >
           <div className="flex items-center gap-3 mb-4">
             <Bell className="w-5 h-5 text-[#34D399]" />
@@ -69,17 +69,17 @@ export default function SettingsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="glass rounded-xl p-6 border border-white/10"
+          className="glass rounded-xl p-6 border border-black/10"
         >
           <div className="flex items-center gap-3 mb-4">
             <Shield className="w-5 h-5 text-[#34D399]" />
             <h2 className="text-xl font-bold">Security</h2>
           </div>
           <div className="space-y-4">
-            <button className="w-full py-2 px-4 rounded-lg border border-white/10 hover:border-[#34D399]/30 transition-colors text-left">
+            <button className="w-full py-2 px-4 rounded-lg border border-black/10 hover:border-[#34D399]/30 transition-colors text-left">
               Change Password
             </button>
-            <button className="w-full py-2 px-4 rounded-lg border border-white/10 hover:border-[#34D399]/30 transition-colors text-left">
+            <button className="w-full py-2 px-4 rounded-lg border border-black/10 hover:border-[#34D399]/30 transition-colors text-left">
               Two-Factor Authentication
             </button>
           </div>

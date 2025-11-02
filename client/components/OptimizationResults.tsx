@@ -98,7 +98,7 @@ export default function OptimizationResults({ data }: OptimizationResultsProps) 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="glass rounded-2xl p-6 md:p-8 border border-white/10"
+      className="glass rounded-2xl p-6 md:p-8 border border-black/10"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
@@ -117,7 +117,7 @@ export default function OptimizationResults({ data }: OptimizationResultsProps) 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="glass rounded-xl p-5 border border-white/10"
+            className="glass rounded-xl p-5 border border-black/10"
           >
             {/* File Name Header */}
             <div className="flex items-center gap-2 mb-3">
@@ -211,7 +211,7 @@ export default function OptimizationResults({ data }: OptimizationResultsProps) 
 
       {/* Single Optimize Button at Bottom */}
       {!isOptimized && (
-        <div className="flex justify-center mt-8 pt-6 border-t border-white/10">
+        <div className="flex justify-center mt-8 pt-6 border-t border-black/10">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

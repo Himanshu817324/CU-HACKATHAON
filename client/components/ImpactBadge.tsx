@@ -48,7 +48,7 @@ export default function ImpactBadge({ label, value, unit = 'gCO₂', trend }: Im
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="inline-flex items-center space-x-3 px-4 py-3 rounded-2xl glass border border-white/10"
+      className="inline-flex items-center space-x-3 px-4 py-3 rounded-2xl glass border border-black/10"
     >
       <div className="flex flex-col">
         <motion.span

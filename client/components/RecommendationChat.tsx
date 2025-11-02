@@ -24,7 +24,7 @@ export default function RecommendationChat({ recommendations }: RecommendationCh
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.1 }}
-          className="glass rounded-2xl p-6 border border-white/10"
+          className="glass rounded-2xl p-6 border border-black/10"
         >
           <div className="flex items-start space-x-4">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">

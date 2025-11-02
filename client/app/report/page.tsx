@@ -54,14 +54,14 @@ export default function Report() {
 
           {/* Additional Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="glass rounded-2xl p-6 border border-white/10">
+            <div className="glass rounded-2xl p-6 border border-black/10">
               <div className="text-sm text-text-secondary mb-2">Total Savings</div>
               <div className="text-3xl font-bold text-success">
                 {(mockComparison.before - mockComparison.after).toFixed(0)} gCO₂
               </div>
               <div className="text-sm text-text-secondary mt-2">Per page load</div>
             </div>
-            <div className="glass rounded-2xl p-6 border border-white/10">
+            <div className="glass rounded-2xl p-6 border border-black/10">
               <div className="text-sm text-text-secondary mb-2">Overall Score</div>
               <div className="text-3xl font-bold text-primary">
                 {mockEmissionData.score}
@@ -69,7 +69,7 @@ export default function Report() {
               </div>
               <div className="text-sm text-text-secondary mt-2">Eco rating</div>
             </div>
-            <div className="glass rounded-2xl p-6 border border-white/10">
+            <div className="glass rounded-2xl p-6 border border-black/10">
               <div className="text-sm text-text-secondary mb-2">CO₂ Saved</div>
               <div className="text-3xl font-bold text-success">
                 {mockEmissionData.co2Saved}
@@ -80,7 +80,7 @@ export default function Report() {
           </div>
 
           {/* Methodology */}
-          <div className="glass rounded-2xl p-8 border border-white/10">
+          <div className="glass rounded-2xl p-8 border border-black/10">
             <h2 className="text-2xl font-bold mb-4">Methodology</h2>
             <p className="text-text-secondary leading-relaxed mb-4">
               Our carbon emission estimates are based on the latest research in digital sustainability,

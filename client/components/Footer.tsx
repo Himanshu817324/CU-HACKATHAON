@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 glass mt-20">
+    <footer className="border-t border-black/10 glass mt-20">
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -45,7 +45,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-12 pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-text-secondary text-sm">
             © 2024 SustainAI. Made for hackathons with 💚
           </p>

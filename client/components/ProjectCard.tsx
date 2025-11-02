@@ -22,7 +22,7 @@ export default function ProjectCard({ name, score, co2Saved, trend, lastAnalyzed
   return (
     <motion.div
       whileHover={{ y: -6, scale: 1.01 }}
-      className="glass rounded-2xl p-6 border border-white/10 hover:border-primary/50 transition-all cursor-pointer"
+      className="glass rounded-2xl p-6 border border-black/10 hover:border-primary/50 transition-all cursor-pointer"
     >
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">

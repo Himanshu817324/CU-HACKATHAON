@@ -14,7 +14,7 @@ export default function ReportPDFPreview({ projectName, generatedAt }: ReportPDF
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass rounded-2xl p-8 border border-white/10"
+      className="glass rounded-2xl p-8 border border-black/10"
     >
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-center space-x-3">
@@ -35,15 +35,15 @@ export default function ReportPDFPreview({ projectName, generatedAt }: ReportPDF
       {/* Preview Content */}
       <div className="space-y-4 mb-6">
         <div className="grid grid-cols-3 gap-4">
-          <div className="bg-white/5 rounded-xl p-4 text-center">
+          <div className="bg-gray-50 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-success mb-1">A+</div>
             <div className="text-xs text-text-secondary">Overall Grade</div>
           </div>
-          <div className="bg-white/5 rounded-xl p-4 text-center">
+          <div className="bg-gray-50 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-primary mb-1">312</div>
             <div className="text-xs text-text-secondary">gCO₂/page</div>
           </div>
-          <div className="bg-white/5 rounded-xl p-4 text-center">
+          <div className="bg-gray-50 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-accent mb-1">-62%</div>
             <div className="text-xs text-text-secondary">Potential Savings</div>
           </div>

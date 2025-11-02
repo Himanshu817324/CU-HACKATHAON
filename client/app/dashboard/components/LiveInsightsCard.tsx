@@ -9,7 +9,7 @@ export default function LiveInsightsCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
-      className="glass rounded-2xl p-6 border border-white/10"
+      className="glass rounded-2xl p-6 border border-black/10"
     >
       {/* Header */}
       <div className="mb-6">
@@ -40,7 +40,7 @@ export default function LiveInsightsCard() {
       </div>
 
       {/* Eco Champion Section */}
-      <div className="glass rounded-xl p-4 border border-white/10">
+      <div className="glass rounded-xl p-4 border border-black/10">
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-lg bg-[#34D399]/20 flex items-center justify-center flex-shrink-0">
             <Award className="w-5 h-5 text-[#34D399]" />

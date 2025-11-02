@@ -248,7 +248,7 @@ export default function EmissionDashboard() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass rounded-2xl p-6 border border-white/10"
+        className="glass rounded-2xl p-6 border border-black/10"
       >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -282,7 +282,7 @@ export default function EmissionDashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             whileHover={{ y: -5, scale: 1.02 }}
-            className="glass rounded-2xl p-6 border border-white/10 hover:border-opacity-30 transition-all cursor-pointer relative overflow-hidden group"
+            className="glass rounded-2xl p-6 border border-black/10 hover:border-opacity-30 transition-all cursor-pointer relative overflow-hidden group"
           >
             <div className="relative z-10">
               <div 
@@ -323,7 +323,7 @@ export default function EmissionDashboard() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4 }}
-          className="glass rounded-2xl p-6 border border-white/10"
+          className="glass rounded-2xl p-6 border border-black/10"
         >
           <h3 className="text-xl font-bold mb-6">CO₂ Distribution</h3>
           {co2Distribution.length > 0 ? (
@@ -367,7 +367,7 @@ export default function EmissionDashboard() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5 }}
-          className="glass rounded-2xl p-6 border border-white/10"
+          className="glass rounded-2xl p-6 border border-black/10"
         >
           <h3 className="text-xl font-bold mb-6">Load Performance Metrics</h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -403,7 +403,7 @@ export default function EmissionDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="glass rounded-2xl p-6 border border-white/10"
+        className="glass rounded-2xl p-6 border border-black/10"
       >
         <h3 className="text-xl font-bold mb-6">Detailed Breakdown</h3>
         <div className="space-y-4">
@@ -412,7 +412,7 @@ export default function EmissionDashboard() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.7 }}
-            className="glass rounded-xl p-4 border border-white/10"
+            className="glass rounded-xl p-4 border border-black/10"
           >
             <div className="flex items-center gap-3 mb-3">
               <Navigation className="w-5 h-5 text-primary" />
@@ -439,7 +439,7 @@ export default function EmissionDashboard() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8 }}
-            className="glass rounded-xl p-4 border border-white/10"
+            className="glass rounded-xl p-4 border border-black/10"
           >
             <div className="flex items-center gap-3 mb-3">
               <FileText className="w-5 h-5 text-primary" />
@@ -466,7 +466,7 @@ export default function EmissionDashboard() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.9 }}
-            className="glass rounded-xl p-4 border border-white/10"
+            className="glass rounded-xl p-4 border border-black/10"
           >
             <div className="flex items-center gap-3 mb-3">
               <Paintbrush className="w-5 h-5 text-primary" />
@@ -489,7 +489,7 @@ export default function EmissionDashboard() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.0 }}
-            className="glass rounded-xl p-4 border border-white/10"
+            className="glass rounded-xl p-4 border border-black/10"
           >
             <div className="flex items-center gap-3 mb-3">
               <MemoryStick className="w-5 h-5 text-primary" />
@@ -514,7 +514,7 @@ export default function EmissionDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.1 }}
-        className="glass rounded-2xl p-6 border border-white/10"
+        className="glass rounded-2xl p-6 border border-black/10"
       >
         <h3 className="text-xl font-bold mb-6">System Variables</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -584,7 +584,7 @@ export default function EmissionDashboard() {
                 className={`flex items-center gap-3 p-4 rounded-xl ${
                   data.co2Estimate.green 
                     ? 'bg-success/20 border border-success/30' 
-                    : 'bg-white/5 border border-white/10'
+                    : 'bg-gray-50 border border-black/10'
                 }`}
               >
                 <div className={`w-3 h-3 rounded-full ${data.co2Estimate.green ? 'bg-success' : 'bg-danger'} animate-pulse`} />
@@ -599,7 +599,7 @@ export default function EmissionDashboard() {
                   </div>
                 </div>
               </motion.div>
-              <div className="glass rounded-xl p-4 border border-white/10">
+              <div className="glass rounded-xl p-4 border border-black/10">
                 <div className="text-sm text-text-secondary mb-2">Green Energy Factor</div>
                 <div className="h-3 rounded-full bg-white/10 overflow-hidden">
                   <motion.div

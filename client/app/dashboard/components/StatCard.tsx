@@ -59,7 +59,7 @@ export default function StatCard({ icon: Icon, label, value, unit, color, delay 
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5 }}
       whileHover={{ y: -5, scale: 1.02 }}
-      className="glass rounded-2xl p-6 border border-white/10 hover:border-opacity-30 transition-all cursor-pointer relative overflow-hidden group"
+      className="glass rounded-2xl p-6 border border-black/10 hover:border-opacity-30 transition-all cursor-pointer relative overflow-hidden group"
     >
       {/* Gradient border effect on hover */}
       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${getBorderColor()} opacity-0 group-hover:opacity-20 transition-opacity`} />

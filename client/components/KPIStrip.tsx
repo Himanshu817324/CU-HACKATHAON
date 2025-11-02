@@ -24,7 +24,7 @@ export default function KPICard({ icon: Icon, label, value, change, unit, delay 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.5 }}
-      className="glass rounded-2xl p-6 border border-white/10"
+      className="glass rounded-2xl p-6 border border-black/10"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">

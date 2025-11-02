@@ -64,7 +64,7 @@ export default function LeftSidebar() {
                 w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all relative
                 ${isActive 
                   ? 'bg-[#34D399]/20 text-[#34D399] border border-[#34D399]/30' 
-                  : 'text-text-secondary hover:bg-white/5 hover:text-text-primary'
+                  : 'text-text-secondary hover:bg-gray-100 hover:text-text-primary'
                 }
               `}
             >
@@ -88,7 +88,7 @@ export default function LeftSidebar() {
       </nav>
 
       {/* User Section */}
-      <div className="p-4 border-t border-white/10">
+      <div className="p-4 border-t border-black/10">
         <div className="glass rounded-xl p-4 mb-4">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#34D399] to-[#38BDF8] flex items-center justify-center">
@@ -106,7 +106,7 @@ export default function LeftSidebar() {
             </div>
           </div>
           {user && (
-            <div className="pt-3 border-t border-white/5">
+            <div className="pt-3 border-t border-black/5">
               <CreditBadge credits={user.credits} />
             </div>
           )}
@@ -126,15 +126,15 @@ export default function LeftSidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex fixed left-0 top-22 w-64 h-[calc(97vh-4rem)] flex-col bg-midnight border-r border-white/10 overflow-hidden z-40">
+      <aside className="hidden lg:flex fixed left-0 top-22 w-64 h-[calc(97vh-4rem)] flex-col bg-midnight border-r border-black/10 overflow-hidden z-40">
         {SidebarContent()}
       </aside>
 
       {/* Mobile Header */}
-      <div className="lg:hidden bg-midnight border-b border-white/10 p-4 flex items-center justify-end">
+      <div className="lg:hidden bg-midnight border-b border-black/10 p-4 flex items-center justify-end">
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="p-2 rounded-lg hover:bg-white/5 transition-colors"
+          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
         >
           {isMobileOpen ? <X /> : <Menu />}
         </button>
@@ -147,7 +147,7 @@ export default function LeftSidebar() {
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
             onClick={() => setIsMobileOpen(false)}
           />
-          <aside className="fixed inset-y-0 left-0 w-64 bg-midnight border-r border-white/10 z-50 lg:hidden">
+          <aside className="fixed inset-y-0 left-0 w-64 bg-midnight border-r border-black/10 z-50 lg:hidden">
             {SidebarContent()}
           </aside>
         </>

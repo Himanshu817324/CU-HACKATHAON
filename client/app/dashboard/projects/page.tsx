@@ -37,7 +37,7 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="glass rounded-xl p-6 border border-white/10 hover:border-[#34D399]/30 transition-all cursor-pointer"
+            className="glass rounded-xl p-6 border border-black/10 hover:border-[#34D399]/30 transition-all cursor-pointer"
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold">{project.name}</h3>

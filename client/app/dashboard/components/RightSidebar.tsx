@@ -37,8 +37,8 @@ const insights: Insight[] = [
 
 export default function RightSidebar() {
   return (
-    <aside className="hidden xl:flex w-80 flex-col glass border-l border-white/10 overflow-y-auto">
-      <div className="p-6 border-b border-white/10">
+    <aside className="hidden xl:flex w-80 flex-col glass border-l border-black/10 overflow-y-auto">
+      <div className="p-6 border-b border-black/10">
         <h3 className="text-xl font-bold mb-1">Live Insights</h3>
         <p className="text-sm text-text-secondary">Real-time updates</p>
       </div>
@@ -48,7 +48,7 @@ export default function RightSidebar() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass rounded-xl p-4 border border-white/10"
+          className="glass rounded-xl p-4 border border-black/10"
         >
           <div className="flex items-center gap-2 mb-3">
             <TrendingUp className="w-5 h-5 text-[#34D399]" />
@@ -80,7 +80,7 @@ export default function RightSidebar() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="glass rounded-xl p-4 border border-white/10 hover:border-opacity-30 transition-all cursor-pointer"
+                className="glass rounded-xl p-4 border border-black/10 hover:border-opacity-30 transition-all cursor-pointer"
               >
                 <div className="flex items-start gap-3">
                   <div 
@@ -104,7 +104,7 @@ export default function RightSidebar() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4 }}
-          className="glass rounded-xl p-6 border border-white/10 flex flex-col items-center"
+          className="glass rounded-xl p-6 border border-black/10 flex flex-col items-center"
         >
           <div className="relative w-32 h-32 mb-4">
             <svg className="transform -rotate-90 w-32 h-32">

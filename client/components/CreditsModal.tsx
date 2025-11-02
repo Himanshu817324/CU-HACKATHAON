@@ -61,7 +61,7 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="glass rounded-3xl p-8 border border-white/10 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="glass rounded-3xl p-8 border border-black/10 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               {/* Header */}
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
@@ -75,7 +75,7 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-xl hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-xl hover:bg-gray-100 transition-colors"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -83,7 +83,7 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
 
               {/* Current Balance */}
               {user && (
-                <div className="glass rounded-2xl p-6 border border-white/10 mb-8">
+                <div className="glass rounded-2xl p-6 border border-black/10 mb-8">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-text-secondary mb-2">Current Balance</p>
@@ -126,7 +126,7 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
                     className={`relative glass rounded-2xl p-6 border ${
                       pkg.popular 
                         ? 'border-[#34D399]/50 bg-gradient-to-br from-[#34D399]/10 to-transparent' 
-                        : 'border-white/10'
+                        : 'border-black/10'
                     } cursor-pointer transition-all`}
                     onClick={() => !purchasing && handlePurchase(pkg.credits)}
                   >
@@ -166,7 +166,7 @@ export default function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
               </div>
 
               {/* Info Section */}
-              <div className="glass rounded-2xl p-6 border border-white/10">
+              <div className="glass rounded-2xl p-6 border border-black/10">
                 <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                   <Coins className="w-5 h-5 text-accent" />
                   How Credits Work

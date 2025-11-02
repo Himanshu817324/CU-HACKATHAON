@@ -67,7 +67,7 @@ export default function CreditsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className="glass rounded-2xl p-6 border border-white/10 hover:border-opacity-30 transition-all"
+              className="glass rounded-2xl p-6 border border-black/10 hover:border-opacity-30 transition-all"
             >
               <div className="flex items-center gap-4">
                 <div 
@@ -96,7 +96,7 @@ export default function CreditsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="glass rounded-2xl p-8 border border-white/10 bg-gradient-to-br from-accent/10 to-primary/10 mb-8"
+        className="glass rounded-2xl p-8 border border-black/10 bg-gradient-to-br from-accent/10 to-primary/10 mb-8"
       >
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
@@ -126,7 +126,7 @@ export default function CreditsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="glass rounded-2xl p-6 border border-white/10"
+        className="glass rounded-2xl p-6 border border-black/10"
       >
         <div className="flex items-center gap-2 mb-6">
           <Clock className="w-5 h-5 text-[#34D399]" />
@@ -139,7 +139,7 @@ export default function CreditsPage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 + index * 0.05 }}
-              className="flex items-center justify-between p-4 rounded-xl glass border border-white/10 hover:border-opacity-30 transition-all"
+              className="flex items-center justify-between p-4 rounded-xl glass border border-black/10 hover:border-opacity-30 transition-all"
             >
               <div className="flex items-center gap-4 flex-1">
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${

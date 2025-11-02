@@ -34,7 +34,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-[#071428] via-[#0a1a32] to-[#071428]">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 via-white to-gray-50">
       {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-72 h-72 bg-[#34D399]/10 rounded-full blur-3xl" />
@@ -63,7 +63,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Form */}
-        <div className="glass rounded-2xl p-8 border border-white/10 shadow-2xl">
+        <div className="glass rounded-2xl p-8 border border-black/10 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <div>
@@ -78,7 +78,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-12 pr-4 py-3 glass border border-white/10 rounded-xl focus:outline-none focus:border-[#34D399] transition-colors text-text-primary bg-white/5"
+                  className="w-full pl-12 pr-4 py-3 glass border border-black/10 rounded-xl focus:outline-none focus:border-[#34D399] transition-colors text-text-primary bg-white"
                   placeholder="you@example.com"
                 />
               </div>
@@ -97,7 +97,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-12 pr-4 py-3 glass border border-white/10 rounded-xl focus:outline-none focus:border-[#34D399] transition-colors text-text-primary bg-white/5"
+                  className="w-full pl-12 pr-4 py-3 glass border border-black/10 rounded-xl focus:outline-none focus:border-[#34D399] transition-colors text-text-primary bg-white"
                   placeholder="Enter your password"
                 />
               </div>
@@ -132,7 +132,7 @@ export default function LoginPage() {
           </form>
 
           {/* Demo Credentials */}
-          <div className="mt-6 pt-6 border-t border-white/10">
+          <div className="mt-6 pt-6 border-t border-black/10">
             <p className="text-sm text-text-secondary text-center mb-2">Demo Credentials:</p>
             <div className="space-y-2 text-xs">
               <div className="glass p-3 rounded-lg">
